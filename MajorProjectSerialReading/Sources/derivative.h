@@ -6,5 +6,5 @@
 /* Include the derivative-specific header file */
 #include <mc9s12dg256.h>
 
-#pragma LINK_INFO DERIVATIVE "mc9s12dg256"
+#pragma LINK_INFO DERIVATIVE "mc9s12dg256b"
 
