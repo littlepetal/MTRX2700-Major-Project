@@ -9,8 +9,9 @@
 typedef struct {
   int var_1;
   double var_2;
-  // volatile char random_string[30];
-  char string_data[24];
+  char string_data_1[30];
+  char string_data_2[30];
+  char output_string[30];
 } data_to_serialise;
 
 void main(void) {
@@ -24,12 +25,12 @@ void main(void) {
   
   data_to_send.var_1 = 12;
   data_to_send.var_2 = 4.231;
-  //data_to_send.random_string = "hello there, why is it here";
 
-  //sprintf(&data_to_send.string_data[0], "serial number %d", data_to_send.var_1);
-  sprintf(&data_to_send.string_data[0], "serial number %lf", data_to_send.var_2);
-  //sprintf(&data_to_send.string_data[0], "%s", data_to_send.random_string);
 
+  sprintf(&data_to_send.string_data_1[0], "serial number %d", data_to_send.var_1);
+  sprintf(&data_to_send.string_data_2[0], "serial number %lf", data_to_send.var_2);
+  sprintf(&data_to_send.output_string[0], "the output string is hello");
+  
   // store the struct in the buffer
   memcpy(transmit_buffer_ptr, (unsigned char*)(&data_to_send), sizeof(data_to_serialise));
                                          
@@ -37,17 +38,14 @@ void main(void) {
   //  serial/network/file/etc and that we know the data contains the struct we are looking for
   memcpy((unsigned char*)(&data_to_receive), transmit_buffer_ptr, sizeof(data_to_serialise));  
   
+  
   // display the data being received - data in the buffer
    
-  //sprintf(&data_to_receive.string_data[0], "serial number %d", data_to_receive.var_1);
-  sprintf(&data_to_receive.string_data[0], "serial number %lf", data_to_receive.var_2);
-  //sprintf(&data_to_receive.string_data[0], "%s", data_to_receive.random_string);
+  //sprintf(&data_to_receive.string_data_1[0], "serial number %d", data_to_receive.var_1);
+  //sprintf(&data_to_receive.string_data_2[0], "serial number %lf", data_to_receive.var_2);
   
-  // Need place to clear memory from stack - stack size increase
   
-  //free(data_to_send);
-  //free(data_to_receive);
-  //free(data_example);
+  /* Need place to clear memory from stack - stack size increase  */                                      
   
   EnableInterrupts;
   
