@@ -37,7 +37,7 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC00B     0xC014   ROM_C000
 NON_BANKED                        49     R     0xC015     0xC045   ROM_C000
 .copy                              2     R     0xC046     0xC047   ROM_C000
-.text                            101     R   0x308000   0x308064   PAGE_30
+.text                             99     R   0x308000   0x308062   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -385,7 +385,7 @@ NON_BANKED                        49     R     0xC015     0xC045   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         12D (dec:      301)
+READ_ONLY (R):         12B (dec:      299)
 READ_WRITE (R/W):      104 (dec:      260)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -447,8 +447,8 @@ MODULE:                 -- mc9s12dg256.c.o --
      _TTOV                                       47       1       1       0   .abs_section_47
      _TCTL1                                      48       1       1       0   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
-     _TCTL3                                      4A       1       1       1   .abs_section_4a
-     _TCTL4                                      4B       1       1       0   .abs_section_4b
+     _TCTL3                                      4A       1       1       0   .abs_section_4a
+     _TCTL4                                      4B       1       1       1   .abs_section_4b
      _TIE                                        4C       1       1       1   .abs_section_4c
      _TSCR2                                      4D       1       1       2   .abs_section_4d
      _TFLG1                                      4E       1       1       1   .abs_section_4e
@@ -745,11 +745,11 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                    308000      28      40       2   .text       
+     main                                    308000      26      38       2   .text       
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    308028      29      41       2   .text       
+     Init                                    308026      29      41       2   .text       
      _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
      _startupData                              C00B       6       6       3   .startData  
@@ -757,9 +757,9 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- timers.c.o --
 - PROCEDURES:
-     reset_overflow_count                    308051       6       6       2   .text       
-     reset_edges_count                       308057       6       6       2   .text       
-     Init_TOF                                30805D       8       8       2   .text       
+     reset_overflow_count                    30804F       6       6       2   .text       
+     reset_edges_count                       308055       6       6       2   .text       
+     Init_TOF                                30805B       8       8       2   .text       
      TOF_ISR                                   C015       C      12       1   NON_BANKED  
      Init_TC1                                  C021      11      17       2   NON_BANKED  
      TC1_ISR                                   C032      12      18       1   NON_BANKED  
@@ -777,7 +777,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     40      0
+  main.c.o                                     0     38      0
   Start12.c.o                                  0     52      0
   timers.c.o                                   4     67      0
   isr_vectors.c.o                              0      2    126
@@ -1532,8 +1532,8 @@ OBJECT LIST SORTED BY ADDRESS
      _TTOV                                       47       1       1       0   .abs_section_47
      _TCTL1                                      48       1       1       0   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
-     _TCTL3                                      4A       1       1       1   .abs_section_4a
-     _TCTL4                                      4B       1       1       0   .abs_section_4b
+     _TCTL3                                      4A       1       1       0   .abs_section_4a
+     _TCTL4                                      4B       1       1       1   .abs_section_4b
      _TIE                                        4C       1       1       1   .abs_section_4c
      _TSCR2                                      4D       1       1       2   .abs_section_4d
      _TFLG1                                      4E       1       1       1   .abs_section_4e
@@ -1832,18 +1832,21 @@ OBJECT LIST SORTED BY ADDRESS
      TC1_ISR                                   C032      12      18       1   NON_BANKED  
      UnimplementedISR                          C044       2       2      61   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
-     main                                    308000      28      40       2   .text       
-     Init                                    308028      29      41       2   .text       
-     reset_overflow_count                    308051       6       6       2   .text       
-     reset_edges_count                       308057       6       6       2   .text       
-     Init_TOF                                30805D       8       8       2   .text       
+     main                                    308000      26      38       2   .text       
+     Init                                    308026      29      41       2   .text       
+     reset_overflow_count                    30804F       6       6       2   .text       
+     reset_edges_count                       308055       6       6       2   .text       
+     Init_TOF                                30805B       8       8       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
 timers.c.o:
-  get_overflow_count get_edges_count 
+  reset_start_count get_overflow_count get_edges_count 
+NOT USED VARIABLES
+timers.c.o:
+  startCount 
 
 *********************************************************************************************
 COPYDOWN SECTION
@@ -1857,7 +1860,7 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK Init main 
 TOF_ISR                   USES numberOfOverflows _TFLG2 
-Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL3 _TIE 
+Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL4 _TIE 
 TC1_ISR                   USES _TCNT _TC1 _TFLG1 edgesCount 
 _vect                     USES UnimplementedISR TOF_ISR TC1_ISR 
 main                      USES Init_TOF Init_TC1 _DDRH _DDRT 
@@ -1903,5 +1906,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 301
+Total size of all blocks to be downloaded: 299
 
