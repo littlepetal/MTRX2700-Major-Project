@@ -3,7 +3,7 @@
 
 
 
-void delayby10ms(int kk);
+void delay(int kk);
 
 
 

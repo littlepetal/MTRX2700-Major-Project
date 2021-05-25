@@ -3,7 +3,7 @@
 
 
 // Simple delay function //
-void delayby10ms(int kk) {
+void delay(int kk) {
     char ix;
     TIOS  |=  0x40; // Enable OC6
     TC6   = TCNT + 30000; // Starting OC6 operation with 20ms delay
