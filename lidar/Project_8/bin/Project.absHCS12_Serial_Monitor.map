@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "C:\Users\Snow\Documents\Project_8\bin\Project.absHCS12_Serial_Monitor.abs"
+PROGRAM "C:\Users\Snow\Desktop\MTRX2700-Major-Project\lidar\Project_8\bin\Project.absHCS12_Serial_Monitor.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -15,6 +15,11 @@ FILE SECTION
 mc9s12dg256.c.o                         Model: BANKED,        Lang: ANSI-C
 main.c.o                                Model: BANKED,        Lang: ANSI-C
 Start12.c.o                             Model: BANKED,        Lang: ANSI-C
+DCONV.C.o (ansibf.lib)                  Model: BANKED,        Lang: ANSI-C
+DMUL.C.o (ansibf.lib)                   Model: BANKED,        Lang: ANSI-C
+DREGS.C.o (ansibf.lib)                  Model: BANKED,        Lang: ANSI-C
+rtshc12.c.o (ansibf.lib)                Model: BANKED,        Lang: ANSI-C
+VREGS.C.o (ansibf.lib)                  Model: BANKED,        Lang: ANSI-C
 timers.c.o                              Model: BANKED,        Lang: ANSI-C
 isr_vectors.c.o                         Model: BANKED,        Lang: ANSI-C
 
@@ -25,8 +30,8 @@ Entry point: 0xC000 (_Startup)
 _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x1100     4
-  _Copy    *toCopyDownBeg 0xC052
+  _Range   pZeroOut       0x1100     10
+  _Copy    *toCopyDownBeg 0xC353
 } _startupData;
 
 *********************************************************************************************
@@ -35,9 +40,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             11     R     0xC000     0xC00A   ROM_C000
 .startData                        10     R     0xC00B     0xC014   ROM_C000
-NON_BANKED                        61     R     0xC015     0xC051   ROM_C000
-.copy                              2     R     0xC052     0xC053   ROM_C000
-.text                             99     R   0x308000   0x308062   PAGE_30
+NON_BANKED                       830     R     0xC015     0xC352   ROM_C000
+.copy                              2     R     0xC353     0xC354   ROM_C000
+.text                            217     R   0x308000   0x3080D8   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -381,12 +386,12 @@ NON_BANKED                        61     R     0xC015     0xC051   ROM_C000
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
-.bss                               4   R/W     0x1100     0x1103   RAM
+.bss                              10   R/W     0x1100     0x1109   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         137 (dec:      311)
-READ_WRITE (R/W):      104 (dec:      260)
+READ_ONLY (R):         4AE (dec:     1198)
+READ_WRITE (R/W):      10A (dec:      266)
 NO_INIT (N/I):         190 (dec:      400)
 
 *********************************************************************************************
@@ -448,7 +453,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _TCTL1                                      48       1       1       0   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
      _TCTL3                                      4A       1       1       0   .abs_section_4a
-     _TCTL4                                      4B       1       1       5   .abs_section_4b
+     _TCTL4                                      4B       1       1       2   .abs_section_4b
      _TIE                                        4C       1       1       1   .abs_section_4c
      _TSCR2                                      4D       1       1       2   .abs_section_4d
      _TFLG1                                      4E       1       1       1   .abs_section_4e
@@ -583,7 +588,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN0TXDLR                                 17C       1       1       0   .abs_section_17c
      _CAN0TXTBPR                                17D       1       1       0   .abs_section_17d
      _PTT                                       240       1       1       0   .abs_section_240
-     _PTIT                                      241       1       1       0   .abs_section_241
+     _PTIT                                      241       1       1       2   .abs_section_241
      _DDRT                                      242       1       1       1   .abs_section_242
      _RDRT                                      243       1       1       0   .abs_section_243
      _PERT                                      244       1       1       0   .abs_section_244
@@ -611,9 +616,9 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       1   .abs_section_260
+     _PTH                                       260       1       1       0   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
-     _DDRH                                      262       1       1       1   .abs_section_262
+     _DDRH                                      262       1       1       0   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
      _PERH                                      264       1       1       0   .abs_section_264
      _PPSH                                      265       1       1       0   .abs_section_265
@@ -687,9 +692,9 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PORTAB                                      0       2       2       0   .abs_section_0
      _DDRAB                                       2       2       2       0   .abs_section_2
      _PARTID                                     1A       2       2       0   .abs_section_1a
-     _TCNT                                       44       2       2       1   .abs_section_44
+     _TCNT                                       44       2       2       0   .abs_section_44
      _TC0                                        50       2       2       0   .abs_section_50
-     _TC1                                        52       2       2       1   .abs_section_52
+     _TC1                                        52       2       2       2   .abs_section_52
      _TC2                                        54       2       2       0   .abs_section_54
      _TC3                                        56       2       2       0   .abs_section_56
      _TC4                                        58       2       2       0   .abs_section_58
@@ -745,30 +750,74 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                    308000      26      38       2   .text       
+     main                                    308000      2A      42       2   .text       
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
-     Init                                    308026      29      41       2   .text       
+     Init                                    30802A      29      41       2   .text       
      _Startup                                  C000       B      11       0   .init       
 - VARIABLES:
      _startupData                              C00B       6       6       3   .startData  
 - LABELS:
      __SEG_END_SSTACK                          1100       0       0       1               
+MODULE:                 -- DCONV.C.o (ansibf.lib) --
+- PROCEDURES:
+     D_TOLONGK                                 C015      33      51       1   NON_BANKED  
+     D_FRLONGK                                 C048      19      25       1   NON_BANKED  
+     _DUFLOAT                                  C061      14      20       1   NON_BANKED  
+     _DSTRUNC                                  C075      19      25       1   NON_BANKED  
+     _DUTRUNC                                  C08E       3       3       1   NON_BANKED  
+     D_PSHK_UNARY                              C091      1E      30       1   NON_BANKED  
+     D_CLRK_UNARY                              C0AF       D      13       2   NON_BANKED  
+     D_MAXK_UNARY                              C0BC       A      10       1   NON_BANKED  
+     D_NORMK_UNARY                             C0C6      5C      92       1   NON_BANKED  
+- VARIABLES:
+MODULE:                 -- DMUL.C.o (ansibf.lib) --
+- PROCEDURES:
+     D_MULKL                                   C122      90     144       1   NON_BANKED  
+     _DMUL                                     C1B2      11      17       1   NON_BANKED  
+- VARIABLES:
+MODULE:                 -- DREGS.C.o (ansibf.lib) --
+- PROCEDURES:
+     D_PULK                                    C1C3      29      41       1   NON_BANKED  
+     D_PULL                                    C1EC      25      37       2   NON_BANKED  
+     D_PSHK                                    C211      23      35       1   NON_BANKED  
+     D_CLRK                                    C234      13      19       3   NON_BANKED  
+     D_MAXK                                    C247       A      10       1   NON_BANKED  
+     D_NORMK                                   C251      8F     143       1   NON_BANKED  
+- VARIABLES:
+MODULE:                 -- rtshc12.c.o (ansibf.lib) --
+- PROCEDURES:
+     _NEG_P                                    C2E0       F      15       1   NON_BANKED  
+- VARIABLES:
+MODULE:                 -- VREGS.C.o (ansibf.lib) --
+- PROCEDURES:
+     L_NEGK                                    C2EF       7       7       1   NON_BANKED  
+     L_PSHK                                    C2F6       8       8       1   NON_BANKED  
+     UL_PULK                                   C2FE       3       3       1   NON_BANKED  
+- VARIABLES:
 MODULE:                 -- timers.c.o --
 - PROCEDURES:
-     reset_overflow_count                    30804F       6       6       2   .text       
-     reset_edges_count                       308055       6       6       2   .text       
-     Init_TOF                                30805B       8       8       2   .text       
-     TOF_ISR                                   C015       C      12       1   NON_BANKED  
-     Init_TC1                                  C021      11      17       2   NON_BANKED  
-     TC1_ISR                                   C032      1E      30       1   NON_BANKED  
+     reset_overflow_count                    308053       6       6       4   .text       
+     reset_edges_count                       308059       6       6       2   .text       
+     reset_start_count                       30805F       6       6       2   .text       
+     reset_end_count                         308065       6       6       2   .text       
+     reset_metres                            30806B       6       6       2   .text       
+     get_overflow_count                      308071       4       4       2   .text       
+     get_distance                            308075      5C      92       2   .text       
+     Init_TOF                                3080D1       8       8       2   .text       
+     TOF_ISR                                   C301       C      12       1   NON_BANKED  
+     Init_TC1                                  C30D      15      21       2   NON_BANKED  
+     TC1_ISR                                   C322      2F      47       1   NON_BANKED  
 - VARIABLES:
-     numberOfOverflows                         1100       2       2       3   .bss        
+     numberOfOverflows                         1100       2       2       4   .bss        
      edgesCount                                1102       2       2       3   .bss        
+     startCount                                1104       2       2       3   .bss        
+     endCount                                  1106       2       2       3   .bss        
+     metres                                    1108       2       2       2   .bss        
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C050       2       2      61   NON_BANKED  
+     UnimplementedISR                          C351       2       2      61   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
@@ -777,9 +826,14 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     38      0
+  main.c.o                                     0     42      0
   Start12.c.o                                  0     52      0
-  timers.c.o                                   4     79      0
+  DCONV.C.o (ansibf.lib)                       0    269      0
+  DMUL.C.o (ansibf.lib)                        0    161      0
+  DREGS.C.o (ansibf.lib)                       0    285      0
+  rtshc12.c.o (ansibf.lib)                     0     15      0
+  VREGS.C.o (ansibf.lib)                       0     18      0
+  timers.c.o                                  10    214      0
   isr_vectors.c.o                              0      2    126
   other                                      256     12      2
 
@@ -787,13 +841,17 @@ MODULE STATISTIC
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Init reset_overflow_count reset_edges_count Init_TOF 
+  main Init reset_overflow_count reset_edges_count reset_start_count 
+  reset_end_count reset_metres get_overflow_count get_distance Init_TOF 
 SECTION: ".bss"
-  numberOfOverflows edgesCount 
+  numberOfOverflows edgesCount startCount endCount metres 
 SECTION: ".init"
   _Startup 
 SECTION: "NON_BANKED"
-  TOF_ISR Init_TC1 TC1_ISR UnimplementedISR 
+  D_TOLONGK D_FRLONGK _DUFLOAT _DSTRUNC _DUTRUNC D_PSHK_UNARY D_CLRK_UNARY 
+  D_MAXK_UNARY D_NORMK_UNARY D_MULKL _DMUL D_PULK D_PULL D_PSHK D_CLRK D_MAXK 
+  D_NORMK _NEG_P L_NEGK L_PSHK UL_PULK TOF_ISR Init_TC1 TC1_ISR 
+  UnimplementedISR 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1527,19 +1585,19 @@ OBJECT LIST SORTED BY ADDRESS
      _CFORC                                      41       1       1       0   .abs_section_41
      _OC7M                                       42       1       1       0   .abs_section_42
      _OC7D                                       43       1       1       0   .abs_section_43
-     _TCNT                                       44       2       2       1   .abs_section_44
+     _TCNT                                       44       2       2       0   .abs_section_44
      _TSCR1                                      46       1       1       2   .abs_section_46
      _TTOV                                       47       1       1       0   .abs_section_47
      _TCTL1                                      48       1       1       0   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
      _TCTL3                                      4A       1       1       0   .abs_section_4a
-     _TCTL4                                      4B       1       1       5   .abs_section_4b
+     _TCTL4                                      4B       1       1       2   .abs_section_4b
      _TIE                                        4C       1       1       1   .abs_section_4c
      _TSCR2                                      4D       1       1       2   .abs_section_4d
      _TFLG1                                      4E       1       1       1   .abs_section_4e
      _TFLG2                                      4F       1       1       1   .abs_section_4f
      _TC0                                        50       2       2       0   .abs_section_50
-     _TC1                                        52       2       2       1   .abs_section_52
+     _TC1                                        52       2       2       2   .abs_section_52
      _TC2                                        54       2       2       0   .abs_section_54
      _TC3                                        56       2       2       0   .abs_section_56
      _TC4                                        58       2       2       0   .abs_section_58
@@ -1721,7 +1779,7 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN0TXTBPR                                17D       1       1       0   .abs_section_17d
      _CAN0TXTSR                                 17E       2       2       0   .abs_section_17e
      _PTT                                       240       1       1       0   .abs_section_240
-     _PTIT                                      241       1       1       0   .abs_section_241
+     _PTIT                                      241       1       1       2   .abs_section_241
      _DDRT                                      242       1       1       1   .abs_section_242
      _RDRT                                      243       1       1       0   .abs_section_243
      _PERT                                      244       1       1       0   .abs_section_244
@@ -1749,9 +1807,9 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSP                                      25D       1       1       0   .abs_section_25d
      _PIEP                                      25E       1       1       0   .abs_section_25e
      _PIFP                                      25F       1       1       0   .abs_section_25f
-     _PTH                                       260       1       1       1   .abs_section_260
+     _PTH                                       260       1       1       0   .abs_section_260
      _PTIH                                      261       1       1       0   .abs_section_261
-     _DDRH                                      262       1       1       1   .abs_section_262
+     _DDRH                                      262       1       1       0   .abs_section_262
      _RDRH                                      263       1       1       0   .abs_section_263
      _PERH                                      264       1       1       0   .abs_section_264
      _PPSH                                      265       1       1       0   .abs_section_265
@@ -1824,34 +1882,78 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXDLR                                 2BC       1       1       0   .abs_section_2bc
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
-     numberOfOverflows                         1100       2       2       3   .bss        
+     numberOfOverflows                         1100       2       2       4   .bss        
      edgesCount                                1102       2       2       3   .bss        
+     startCount                                1104       2       2       3   .bss        
+     endCount                                  1106       2       2       3   .bss        
+     metres                                    1108       2       2       2   .bss        
      _Startup                                  C000       B      11       0   .init       
-     TOF_ISR                                   C015       C      12       1   NON_BANKED  
-     Init_TC1                                  C021      11      17       2   NON_BANKED  
-     TC1_ISR                                   C032      1E      30       1   NON_BANKED  
-     UnimplementedISR                          C050       2       2      61   NON_BANKED  
+     D_TOLONGK                                 C015      33      51       1   NON_BANKED  
+     D_FRLONGK                                 C048      19      25       1   NON_BANKED  
+     _DUFLOAT                                  C061      14      20       1   NON_BANKED  
+     _DSTRUNC                                  C075      19      25       1   NON_BANKED  
+     _DUTRUNC                                  C08E       3       3       1   NON_BANKED  
+     D_PSHK_UNARY                              C091      1E      30       1   NON_BANKED  
+     D_CLRK_UNARY                              C0AF       D      13       2   NON_BANKED  
+     D_MAXK_UNARY                              C0BC       A      10       1   NON_BANKED  
+     D_NORMK_UNARY                             C0C6      5C      92       1   NON_BANKED  
+     D_MULKL                                   C122      90     144       1   NON_BANKED  
+     _DMUL                                     C1B2      11      17       1   NON_BANKED  
+     D_PULK                                    C1C3      29      41       1   NON_BANKED  
+     D_PULL                                    C1EC      25      37       2   NON_BANKED  
+     D_PSHK                                    C211      23      35       1   NON_BANKED  
+     D_CLRK                                    C234      13      19       3   NON_BANKED  
+     D_MAXK                                    C247       A      10       1   NON_BANKED  
+     D_NORMK                                   C251      8F     143       1   NON_BANKED  
+     _NEG_P                                    C2E0       F      15       1   NON_BANKED  
+     L_NEGK                                    C2EF       7       7       1   NON_BANKED  
+     L_PSHK                                    C2F6       8       8       1   NON_BANKED  
+     UL_PULK                                   C2FE       3       3       1   NON_BANKED  
+     TOF_ISR                                   C301       C      12       1   NON_BANKED  
+     Init_TC1                                  C30D      15      21       2   NON_BANKED  
+     TC1_ISR                                   C322      2F      47       1   NON_BANKED  
+     UnimplementedISR                          C351       2       2      61   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
-     main                                    308000      26      38       2   .text       
-     Init                                    308026      29      41       2   .text       
-     reset_overflow_count                    30804F       6       6       2   .text       
-     reset_edges_count                       308055       6       6       2   .text       
-     Init_TOF                                30805B       8       8       2   .text       
+     main                                    308000      2A      42       2   .text       
+     Init                                    30802A      29      41       2   .text       
+     reset_overflow_count                    308053       6       6       4   .text       
+     reset_edges_count                       308059       6       6       2   .text       
+     reset_start_count                       30805F       6       6       2   .text       
+     reset_end_count                         308065       6       6       2   .text       
+     reset_metres                            30806B       6       6       2   .text       
+     get_overflow_count                      308071       4       4       2   .text       
+     get_distance                            308075      5C      92       2   .text       
+     Init_TOF                                3080D1       8       8       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
 ---------------------------------------------------------------------------------------------
 NOT USED PROCEDURES
+DCONV.C.o (ansibf.lib):
+  _DSFLOAT 
+DMUL.C.o (ansibf.lib):
+  D_DIVKL _DDIV 
+DREGS.C.o (ansibf.lib):
+  D_STAL D_TLK D_TKL D_XGKL D_CLRL 
+rtshc12.c.o (ansibf.lib):
+  _BSHL _BSHRS _BSHRU _BDIVMODU _BDIVMODS _ISHL _ISHRU _ISHRS _LSHL _LSHRU 
+  _LSHRS _LADD _LSUB _LAND _LOR _LXOR _LCMP _LCMP_P _LCMP_PP _LNEG _LCOM _LINC 
+  _LDEC _LMUL _LMULU16x32 _LMULS16x32 _lDivMod _LDIVU _LDIVS _LMODU _LMODS 
+  _ILSEXT _COPY _CASE_DIRECT _CASE_DIRECT_BYTE _CASE_CHECKED _CASE_CHECKED_BYTE 
+  _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 _CASE_SEARCH_8_BYTE _FCALL 
+  _FPCMP 
+VREGS.C.o (ansibf.lib):
+  SL_PULK 
 timers.c.o:
-  reset_start_count get_overflow_count get_edges_count 
+  get_edges_count 
 NOT USED VARIABLES
-timers.c.o:
-  startCount 
+rtshc12.c.o (ansibf.lib):
+  _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC052 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC353 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1859,15 +1961,34 @@ Filling bytes inserted
 OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 _Startup                  USES __SEG_END_SSTACK Init main 
+D_FRLONGK                 USES D_NORMK_UNARY 
+_DUFLOAT                  USES UL_PULK D_FRLONGK D_PSHK_UNARY 
+_DSTRUNC                  USES D_PULL D_TOLONGK L_PSHK 
+_DUTRUNC                  USES _DSTRUNC 
+D_MAXK_UNARY              USES D_CLRK_UNARY 
+D_NORMK_UNARY             USES D_CLRK_UNARY D_MAXK_UNARY 
+D_MULKL                   USES D_CLRK D_NORMK 
+_DMUL                     USES D_PULK D_PULL D_MULKL D_PSHK 
+D_MAXK                    USES D_CLRK 
+D_NORMK                   USES D_CLRK D_MAXK 
+L_NEGK                    USES _NEG_P 
+L_PSHK                    USES L_NEGK 
 TOF_ISR                   USES numberOfOverflows _TFLG2 
 Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL4 _TIE 
-TC1_ISR                   USES _TCTL4 _TCNT _TC1 _TFLG1 edgesCount 
+TC1_ISR                   USES _PTIT _TC1 startCount endCount get_distance 
+                                metres _TFLG1 edgesCount 
 _vect                     USES UnimplementedISR TOF_ISR TC1_ISR 
-main                      USES Init_TOF Init_TC1 _DDRH _DDRT 
-                                reset_overflow_count reset_edges_count _PTH 
+main                      USES Init_TOF Init_TC1 _DDRT reset_overflow_count 
+                                reset_edges_count reset_start_count reset_end_count reset_metres 
 Init                      USES _startupData 
 reset_overflow_count      USES numberOfOverflows 
 reset_edges_count         USES edgesCount 
+reset_start_count         USES startCount 
+reset_end_count           USES endCount 
+reset_metres              USES metres 
+get_overflow_count        USES numberOfOverflows 
+get_distance              USES get_overflow_count _DUFLOAT _DMUL _DUTRUNC 
+                                reset_overflow_count 
 Init_TOF                  USES _TSCR1 _TSCR2 
 
 *********************************************************************************************
@@ -1884,6 +2005,12 @@ DEPENDENCY TREE
  |  +- reset_overflow_count
  |  |    
  |  +- reset_edges_count   
+ |  |    
+ |  +- reset_start_count   
+ |  |    
+ |  +- reset_end_count     
+ |  |    
+ |  +- reset_metres        
  |       
  +- _Startup            
     | 
@@ -1898,7 +2025,63 @@ DEPENDENCY TREE
  +- TOF_ISR             
  |    
  +- TC1_ISR             
-      
+    | 
+    +- get_distance        
+       | 
+       +- get_overflow_count  
+       |    
+       +- _DUFLOAT            
+       |  | 
+       |  +- UL_PULK             
+       |  |    
+       |  +- D_FRLONGK           
+       |  |  | 
+       |  |  +- D_NORMK_UNARY       
+       |  |     | 
+       |  |     +- D_CLRK_UNARY        
+       |  |     |    
+       |  |     +- D_MAXK_UNARY        
+       |  |        | 
+       |  |        +- D_CLRK_UNARY         (see above)
+       |  |           
+       |  +- D_PSHK_UNARY        
+       |       
+       +- _DMUL               
+       |  | 
+       |  +- D_PULK              
+       |  |    
+       |  +- D_PULL              
+       |  |    
+       |  +- D_MULKL             
+       |  |  | 
+       |  |  +- D_CLRK              
+       |  |  |    
+       |  |  +- D_NORMK             
+       |  |     | 
+       |  |     +- D_CLRK               (see above)
+       |  |     |  
+       |  |     +- D_MAXK              
+       |  |        | 
+       |  |        +- D_CLRK               (see above)
+       |  |           
+       |  +- D_PSHK              
+       |       
+       +- _DUTRUNC            
+       |  | 
+       |  +- _DSTRUNC            
+       |     | 
+       |     +- D_PULL               (see above)
+       |     |  
+       |     +- D_TOLONGK           
+       |     |    
+       |     +- L_PSHK              
+       |        | 
+       |        +- L_NEGK              
+       |           | 
+       |           +- _NEG_P              
+       |                
+       +- reset_overflow_count (see above)
+          
 *********************************************************************************************
 STATISTIC SECTION
 ---------------------------------------------------------------------------------------------
@@ -1906,5 +2089,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 311
+Total size of all blocks to be downloaded: 1198
 

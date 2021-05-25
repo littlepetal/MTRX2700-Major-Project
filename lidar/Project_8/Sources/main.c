@@ -13,18 +13,21 @@ void main(void) {
   
   // Init_PTH();
   
-  DDRH = 0xFF;
+  //DDRH = 0xFF;
   
   DDRT = 0x00;
   
   reset_overflow_count();
   reset_edges_count();
+  reset_start_count();
+  reset_end_count();
+  reset_metres();
 
 	EnableInterrupts;
 	
 	
 	// trigger
-	PTH = 0x00;
+	//PTH = 0x00;
 	
   
 	
