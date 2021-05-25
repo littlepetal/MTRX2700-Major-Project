@@ -54,26 +54,34 @@ __interrupt void TOF_ISR(void) {
 
 
 
+
 void Init_TC1 (void) {
-  // set up the timers for channel 7 to use the interrupt
+  // set up the timers for channel 1 to use the interrupt
   TSCR1=0x80;
   TSCR2=0x81;
   
-  TIOS =0x00;     // set channel 7 to input capture
-  TCTL4 = 0xC0;   // capture on both falling and rising edge
-  TIE=0x02;       // enable channel 7 interrupt
+  TIOS =0x00;     // set channel 1 to input capture
+  TCTL4 =0x08;   // capture on falling edge only
+  TIE=0x02;       // enable channel 1 interrupt
 }
-
 
 // look at the isr_vectors.c for where this function is 
 //  added to the ISR vector table
-#pragma CODE_SEG __NEAR_SEG NON_BANKED /* Interrupt section for this module. Placement will be in NON_BANKED area. */
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
 __interrupt void TC1_ISR(void) { 
+  
+  
+  //need to toggle rising/falling
+  TCTL4 = TCTL4 ^ TCTL4_EDG1A_MASK;
+  TCTL4 = TCTL4 ^ TCTL4_EDG1B_MASK;  
+  
+  
   
   TC1 =TCNT + (word)62500;    // 12 Hhz and PT7
   TFLG1=TFLG1 | TFLG1_C1F_MASK;
   edgesCount += 1;
-}        
+  
+}    
 
     
 

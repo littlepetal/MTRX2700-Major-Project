@@ -8,7 +8,9 @@ void main(void) {
   /* put your own code here */
     
   Init_TOF();
+  //Init_TC2();
   Init_TC1();
+  
   // Init_PTH();
   
   DDRH = 0xFF;
@@ -22,7 +24,7 @@ void main(void) {
 	
 	
 	// trigger
-	PTH = 0x01;
+	PTH = 0x00;
 	
   
 	
