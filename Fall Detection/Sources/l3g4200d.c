@@ -36,7 +36,7 @@ ACCELEROMETER_CFG_STRUCT accelerometer_cfg = {ADXL345_POWER_CTL, 0x08, ADXL345_D
 // structure containing the config parameters for the gyroscope  
 typedef struct GYRO_CFG_STRUCT {
   uint8_t ctl_register;
-  uint8_t ctl_value;   
+  uint8_t ctl_value;
 } GYRO_CFG_STRUCT;
 
 GYRO_CFG_STRUCT gyro_cfg = {L3G4200D_CTRL_REG1, 0x0f};
