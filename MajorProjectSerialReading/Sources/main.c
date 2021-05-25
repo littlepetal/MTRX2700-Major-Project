@@ -1,9 +1,10 @@
 #include <math.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <hidef.h>            /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 
-
+#include "sci1.h"
 #include "serialReading.h"
 
 
@@ -19,10 +20,10 @@ void main(void) {
   data_to_send.var_1 = 12;
   data_to_send.var_2 = 4.231;
 
-
+  // Issue so far if set string, no problem
   sprintf(&data_to_send.string_data_1[0], "serial number %d", data_to_send.var_1);
   sprintf(&data_to_send.string_data_2[0], "serial number %lf", data_to_send.var_2);
-  sprintf(&data_to_send.output_string[0], "the output string is hello");
+  sprintf(&data_to_send.output_string[0], data_to_send.string_data_1);
   
   // store the struct in the buffer
   memcpy(transmit_buffer_ptr, (unsigned char*)(&data_to_send), sizeof(data_to_serialise));
@@ -30,15 +31,8 @@ void main(void) {
   // load the value from the buffer (presume that you have just received this from the 
   //  serial/network/file/etc and that we know the data contains the struct we are looking for
   memcpy((unsigned char*)(&data_to_receive), transmit_buffer_ptr, sizeof(data_to_serialise));  
-  
-  
-  // display the data being received - data in the buffer
-   
-  sprintf("%s",data_to_receive.string_data_1);
 
-  
-  
-  /* Need place to clear memory from stack - stack size increase  */                                      
+  Init_sci();
   
   EnableInterrupts;
   

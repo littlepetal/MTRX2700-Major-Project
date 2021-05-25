@@ -1,5 +1,6 @@
 #include "serialReading.h"
 #include <stdio.h>
+#include <math.h>
 
 // include the register/pin definitions
 #include "derivative.h"      /* derivative-specific definitions */
@@ -7,6 +8,7 @@
 char re[100];
 volatile int re_place;
 unsigned char SCIString[12];
+
 
 // Function to initialise serial reading and transmitting
 void Init_sci(void){

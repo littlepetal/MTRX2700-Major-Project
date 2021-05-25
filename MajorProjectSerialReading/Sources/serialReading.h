@@ -21,6 +21,7 @@ typedef struct {
 //function to initialise serial
 void Init_sci(void);
 
+
 //serial interrupt definiton
 __interrupt void RE_ISR(void);
 
