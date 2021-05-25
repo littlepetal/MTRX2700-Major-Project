@@ -1,25 +1,18 @@
+#include <math.h>
+#include <stdio.h>
 #include <hidef.h>            /* common defines and macros */
 #include "derivative.h"      /* derivative-specific definitions */
 
-#include <math.h>
-#include <stdio.h>
 
+#include "serialReading.h"
 
-// struct would allows us to define what type of data is required.
-typedef struct {
-  int var_1;
-  double var_2;
-  char string_data_1[30];
-  char string_data_2[30];
-  char output_string[30];
-} data_to_serialise;
 
 void main(void) {
 
   // a data struct that we would like to serialise and send to another computer/device/file/etc
   data_to_serialise data_to_send, data_to_receive;
 
-  // a buffer used to transmit the serialised message  
+  // a buffer used to transmit the serialised message (this is the intermediate stage)  
   unsigned char transmit_buffer[sizeof(data_to_serialise)];
   unsigned char *transmit_buffer_ptr = &transmit_buffer;
   
@@ -41,8 +34,8 @@ void main(void) {
   
   // display the data being received - data in the buffer
    
-  //sprintf(&data_to_receive.string_data_1[0], "serial number %d", data_to_receive.var_1);
-  //sprintf(&data_to_receive.string_data_2[0], "serial number %lf", data_to_receive.var_2);
+  sprintf("%s",data_to_receive.string_data_1);
+
   
   
   /* Need place to clear memory from stack - stack size increase  */                                      
