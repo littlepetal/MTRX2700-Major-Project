@@ -23,42 +23,42 @@ volatile int notes_left;
 
 // Define structure //
 struct Speaker {
-  volatile unsigned int score[200]; 
-  volatile unsigned int dur[200];
+  volatile unsigned int score[500]; 
+  volatile unsigned int dur[500];
 };
 
 
 struct Speaker Voice1 = 
 {
-      {1, E1, 1, E1, 1},
-      {1, 12, 6, 12, 3}
+      {E1, 1, E1, 1},
+      {12, 6, 12, 5}
 };
 
 struct Speaker Voice2 = 
 {
-      {1, D2, 1, D2, 1},
-      {1, 8, 4, 8, 3}
+      {D2, 1, D2, 1, D2, 1},
+      {8, 4, 8, 4, 8, 3}
 };
       
       
 struct Speaker Voice3 = 
 {
-      {1, C3, 1, C3, 1},
-      {1, 6, 3, 6, 2}
+      {C3, 1, C3, 1, C3, 1, C3, 1},
+      {6, 3, 6, 3, 6, 3, 6, 2}
 };
       
       
 struct Speaker Voice4 = 
 {
-      {B4, 1, B4, 1, B4, 1},
-      {4, 2, 4, 1, 4, 1}
+      {B4, 1, B4, 1, B4, 1, B4, 1, B4, 1, B4, 1},
+      {4, 2, 4, 2, 4, 2, 4, 2, 4, 1, 4, 1}
 };
       
 
 struct Speaker Voice5 = 
 {
-      {1, A5, 1, A5, 1, A5, 1},
-      {1, 3, 1, 3, 1, 3, 1}
+      {A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1, A5, 1},
+      {2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1, 2, 1}
 };
 
 
@@ -72,7 +72,7 @@ struct Speaker Voice;
 
 void main(void) {
   /* put your own code here */
-  int j,voiceNumber,fallDown;
+  int j,voiceNumber,fallDown,Button,acceleration;
   
   TCTL1 = 0x04; // sets 0C5 to toggle. When event occurs, will toggle PT5
   TIOS  = 0x20; // Selecting channel 5 as output compare
@@ -91,10 +91,23 @@ void main(void) {
   DDRT  = 0x20; // Sets PT5 to be output to speaker
   
   dlycnt = HiFreq; // set delay count for a high pitch
+ 
+ 
+ 
+  //acceleration = 1;
+  //DDRH = 0x0;
+  //Button = PTH;
   
+  //if(Button = 0xFE || acceleration == 0){
+    //fallDown = 0;
+  //} 
+  //else{
+    //fallDown = 1;
+  //}
   
-  voiceNumber = 5;
   fallDown = 0;
+  voiceNumber = 5;
+  
    
   if(fallDown == 0 && voiceNumber == 1){
     Voice = Voice1;
@@ -126,7 +139,7 @@ void main(void) {
   while(1) {
     if (Voice.score[j] == 0) {
       break;
-    } else if (Voice.score[j] == 2) {
+    } else if (Voice.score[j] == 1) {
       // Do nothing //
       j++;
     } else {
@@ -155,7 +168,7 @@ void main(void) {
     
     
     // Count notes remaining //
-    if (Voice.score[j] != 2) {
+    if (Voice.score[j] != 1) {
       notes_left--;
     }
     

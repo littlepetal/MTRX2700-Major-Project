@@ -3,12 +3,12 @@
 
 
 // Simple delay function //
-void delay(int kk) {
-    char ix;
+void delay(int k) {
+    char i;
     TIOS  |=  0x40; // Enable OC6
-    TC6   = TCNT + 30000; // Starting OC6 operation with 20ms delay
+    TC6   = TCNT + 30000; // Starting OC6 operation with delay
     
-    for(ix = 0; ix<kk ;ix++) {
+    for(i = 0; i<k ;i++) {
       
       while(!(TFLG1 & 0x40));
       TC6 +=  30000;
