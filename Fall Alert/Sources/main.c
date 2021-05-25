@@ -13,13 +13,9 @@
 
 void main(void) {
 
- 
-  AccelScaled scaled_accel;
   AccelRaw read_accel;
+  AccelScaled scaled_accel;
 
-
-  
-  int did_fall =0;
   GyroRaw read_gyro;
   
   MagRaw read_magnet;
@@ -80,22 +76,18 @@ void main(void) {
     // inject some values for simulation
     read_gyro.x = 123; read_gyro.y = 313; read_gyro.z = 1002;
     read_accel.x = 124; read_accel.y = 312; read_accel.z = 2002;
-    read_magnet.x = 125; read_magnet.y = 311; read_magnet.z = 3002; \\\\\\\\\\\\\\\
-    
+    read_magnet.x = 125; read_magnet.y = 311; read_magnet.z = 3002;
     
     #endif
 
     // convert the acceleration to a scaled value
     convertUnits(&read_accel, &scaled_accel);    
     
-        
-   // format the string of the sensor data to go the the serial
-   sprintf(buffer, "%.2f, %.2f, %.2f, %d, %d, %d, %d, %d, %d \r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z, read_gyro.x, read_gyro.y, read_gyro.z, read_magnet.x, read_magnet.y, read_magnet.z);
+    // format the string of the sensor data to go the the serial
+    sprintf(buffer, "%.2f, %.2f, %.2f, %d, %d, %d, %d, %d, %d \r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z, read_gyro.x, read_gyro.y, read_gyro.z, read_magnet.x, read_magnet.y, read_magnet.z);
     
     // output the data to serial
     SCI1_OutString(buffer);
-    
-    
     
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */
