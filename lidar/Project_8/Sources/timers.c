@@ -37,21 +37,3 @@ __interrupt void TOF_ISR(void) {
     numberOfOverflows += 1;        // increment overflow count    
     TFLG2 = 0x80;
 } 
-
-
-// set up the timers for channel 1 to use the interrupt
-void Init_TC1 (void) {
-  TSCR1=0x80;
-  TSCR2=0x84;
-  
-  TIOS =0x00;     // set channel 1 to input capture
-  
-  // capture on both falling and rising edge
-  TCTL4_EDG1A = 1;
-  TCTL4_EDG1B = 1; 
-  
-  TIE=0x02;       // enable channel 1 interrupt
-}
-
-
-        

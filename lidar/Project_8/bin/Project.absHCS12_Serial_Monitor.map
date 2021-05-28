@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "C:\Users\Snow\Documents\Project_8\bin\Project.absHCS12_Serial_Monitor.abs"
+PROGRAM "C:\Users\Snow\Desktop\MTRX2700-Major-Project\lidar\Project_8\bin\Project.absHCS12_Serial_Monitor.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -20,6 +20,7 @@ DMUL.C.o (ansibf.lib)                   Model: BANKED,        Lang: ANSI-C
 DREGS.C.o (ansibf.lib)                  Model: BANKED,        Lang: ANSI-C
 rtshc12.c.o (ansibf.lib)                Model: BANKED,        Lang: ANSI-C
 VREGS.C.o (ansibf.lib)                  Model: BANKED,        Lang: ANSI-C
+lidar.c.o                               Model: BANKED,        Lang: ANSI-C
 timers.c.o                              Model: BANKED,        Lang: ANSI-C
 isr_vectors.c.o                         Model: BANKED,        Lang: ANSI-C
 
@@ -31,7 +32,7 @@ _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1100     10
-  _Copy    *toCopyDownBeg 0xC353
+  _Copy    *toCopyDownBeg 0xC33E
 } _startupData;
 
 *********************************************************************************************
@@ -40,9 +41,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             11     R     0xC000     0xC00A   ROM_C000
 .startData                        10     R     0xC00B     0xC014   ROM_C000
-NON_BANKED                       830     R     0xC015     0xC352   ROM_C000
-.copy                              2     R     0xC353     0xC354   ROM_C000
-.text                            217     R   0x308000   0x3080D8   PAGE_30
+NON_BANKED                       809     R     0xC015     0xC33D   ROM_C000
+.copy                              2     R     0xC33E     0xC33F   ROM_C000
+.text                            238     R   0x308000   0x3080ED   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -796,28 +797,31 @@ MODULE:                 -- VREGS.C.o (ansibf.lib) --
      L_PSHK                                    C2F6       8       8       1   NON_BANKED  
      UL_PULK                                   C2FE       3       3       1   NON_BANKED  
 - VARIABLES:
-MODULE:                 -- timers.c.o --
+MODULE:                 -- lidar.c.o --
 - PROCEDURES:
-     reset_overflow_count                    308053       6       6       4   .text       
+     reset_metres                            308053       6       6       2   .text       
      reset_edges_count                       308059       6       6       2   .text       
      reset_start_count                       30805F       6       6       2   .text       
      reset_end_count                         308065       6       6       2   .text       
-     reset_metres                            30806B       6       6       2   .text       
-     get_overflow_count                      308071       4       4       2   .text       
-     get_distance                            308075      5C      92       2   .text       
-     Init_TOF                                3080D1       8       8       2   .text       
-     TOF_ISR                                   C301       C      12       1   NON_BANKED  
-     Init_TC1                                  C30D      15      21       2   NON_BANKED  
-     TC1_ISR                                   C322      2F      47       1   NON_BANKED  
+     get_distance                            30806B      5C      92       2   .text       
+     Init_TC1                                3080C7      15      21       2   .text       
+     TC1_ISR                                   C301      2F      47       1   NON_BANKED  
 - VARIABLES:
-     numberOfOverflows                         1100       2       2       4   .bss        
+     metres                                    1100       2       2       2   .bss        
      edgesCount                                1102       2       2       3   .bss        
      startCount                                1104       2       2       3   .bss        
      endCount                                  1106       2       2       3   .bss        
-     metres                                    1108       2       2       2   .bss        
+MODULE:                 -- timers.c.o --
+- PROCEDURES:
+     reset_overflow_count                    3080DC       6       6       4   .text       
+     get_overflow_count                      3080E2       4       4       2   .text       
+     Init_TOF                                3080E6       8       8       2   .text       
+     TOF_ISR                                   C330       C      12       1   NON_BANKED  
+- VARIABLES:
+     numberOfOverflows                         1108       2       2       4   .bss        
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C351       2       2      61   NON_BANKED  
+     UnimplementedISR                          C33C       2       2      61   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
@@ -833,7 +837,8 @@ MODULE STATISTIC
   DREGS.C.o (ansibf.lib)                       0    285      0
   rtshc12.c.o (ansibf.lib)                     0     15      0
   VREGS.C.o (ansibf.lib)                       0     18      0
-  timers.c.o                                  10    214      0
+  lidar.c.o                                    8    184      0
+  timers.c.o                                   2     30      0
   isr_vectors.c.o                              0      2    126
   other                                      256     12      2
 
@@ -841,17 +846,16 @@ MODULE STATISTIC
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main Init reset_overflow_count reset_edges_count reset_start_count 
-  reset_end_count reset_metres get_overflow_count get_distance Init_TOF 
+  main Init reset_metres reset_edges_count reset_start_count reset_end_count 
+  get_distance Init_TC1 reset_overflow_count get_overflow_count Init_TOF 
 SECTION: ".bss"
-  numberOfOverflows edgesCount startCount endCount metres 
+  metres edgesCount startCount endCount numberOfOverflows 
 SECTION: ".init"
   _Startup 
 SECTION: "NON_BANKED"
   D_TOLONGK D_FRLONGK _DUFLOAT _DSTRUNC _DUTRUNC D_PSHK_UNARY D_CLRK_UNARY 
   D_MAXK_UNARY D_NORMK_UNARY D_MULKL _DMUL D_PULK D_PULL D_PSHK D_CLRK D_MAXK 
-  D_NORMK _NEG_P L_NEGK L_PSHK UL_PULK TOF_ISR Init_TC1 TC1_ISR 
-  UnimplementedISR 
+  D_NORMK _NEG_P L_NEGK L_PSHK UL_PULK TC1_ISR TOF_ISR UnimplementedISR 
 SECTION: ".abs_section_8"
   _PORTE 
 SECTION: ".abs_section_9"
@@ -1882,11 +1886,11 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXDLR                                 2BC       1       1       0   .abs_section_2bc
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
-     numberOfOverflows                         1100       2       2       4   .bss        
+     metres                                    1100       2       2       2   .bss        
      edgesCount                                1102       2       2       3   .bss        
      startCount                                1104       2       2       3   .bss        
      endCount                                  1106       2       2       3   .bss        
-     metres                                    1108       2       2       2   .bss        
+     numberOfOverflows                         1108       2       2       4   .bss        
      _Startup                                  C000       B      11       0   .init       
      D_TOLONGK                                 C015      33      51       1   NON_BANKED  
      D_FRLONGK                                 C048      19      25       1   NON_BANKED  
@@ -1909,21 +1913,21 @@ OBJECT LIST SORTED BY ADDRESS
      L_NEGK                                    C2EF       7       7       1   NON_BANKED  
      L_PSHK                                    C2F6       8       8       1   NON_BANKED  
      UL_PULK                                   C2FE       3       3       1   NON_BANKED  
-     TOF_ISR                                   C301       C      12       1   NON_BANKED  
-     Init_TC1                                  C30D      15      21       2   NON_BANKED  
-     TC1_ISR                                   C322      2F      47       1   NON_BANKED  
-     UnimplementedISR                          C351       2       2      61   NON_BANKED  
+     TC1_ISR                                   C301      2F      47       1   NON_BANKED  
+     TOF_ISR                                   C330       C      12       1   NON_BANKED  
+     UnimplementedISR                          C33C       2       2      61   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
      main                                    308000      2A      42       2   .text       
      Init                                    30802A      29      41       2   .text       
-     reset_overflow_count                    308053       6       6       4   .text       
+     reset_metres                            308053       6       6       2   .text       
      reset_edges_count                       308059       6       6       2   .text       
      reset_start_count                       30805F       6       6       2   .text       
      reset_end_count                         308065       6       6       2   .text       
-     reset_metres                            30806B       6       6       2   .text       
-     get_overflow_count                      308071       4       4       2   .text       
-     get_distance                            308075      5C      92       2   .text       
-     Init_TOF                                3080D1       8       8       2   .text       
+     get_distance                            30806B      5C      92       2   .text       
+     Init_TC1                                3080C7      15      21       2   .text       
+     reset_overflow_count                    3080DC       6       6       4   .text       
+     get_overflow_count                      3080E2       4       4       2   .text       
+     Init_TOF                                3080E6       8       8       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -1944,8 +1948,8 @@ rtshc12.c.o (ansibf.lib):
   _FPCMP 
 VREGS.C.o (ansibf.lib):
   SL_PULK 
-timers.c.o:
-  get_edges_count 
+lidar.c.o:
+  get_metres get_edges_count 
 NOT USED VARIABLES
 rtshc12.c.o (ansibf.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
@@ -1953,7 +1957,7 @@ rtshc12.c.o (ansibf.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC353 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC33E ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1973,22 +1977,23 @@ D_MAXK                    USES D_CLRK
 D_NORMK                   USES D_CLRK D_MAXK 
 L_NEGK                    USES _NEG_P 
 L_PSHK                    USES L_NEGK 
-TOF_ISR                   USES numberOfOverflows _TFLG2 
-Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL4 _TIE 
 TC1_ISR                   USES _PTIT _TC1 startCount endCount get_distance 
                                 metres _TFLG1 edgesCount 
+TOF_ISR                   USES numberOfOverflows _TFLG2 
 _vect                     USES UnimplementedISR TOF_ISR TC1_ISR 
 main                      USES Init_TOF Init_TC1 _DDRT reset_overflow_count 
-                                reset_edges_count reset_start_count reset_end_count reset_metres 
+                                reset_metres reset_edges_count reset_start_count 
+                                reset_end_count 
 Init                      USES _startupData 
-reset_overflow_count      USES numberOfOverflows 
+reset_metres              USES metres 
 reset_edges_count         USES edgesCount 
 reset_start_count         USES startCount 
 reset_end_count           USES endCount 
-reset_metres              USES metres 
-get_overflow_count        USES numberOfOverflows 
 get_distance              USES get_overflow_count _DUFLOAT _DMUL _DUTRUNC 
                                 reset_overflow_count 
+Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL4 _TIE 
+reset_overflow_count      USES numberOfOverflows 
+get_overflow_count        USES numberOfOverflows 
 Init_TOF                  USES _TSCR1 _TSCR2 
 
 *********************************************************************************************
@@ -2004,13 +2009,13 @@ DEPENDENCY TREE
  |  |    
  |  +- reset_overflow_count
  |  |    
+ |  +- reset_metres        
+ |  |    
  |  +- reset_edges_count   
  |  |    
  |  +- reset_start_count   
  |  |    
  |  +- reset_end_count     
- |  |    
- |  +- reset_metres        
  |       
  +- _Startup            
     | 

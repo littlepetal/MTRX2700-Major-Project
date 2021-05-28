@@ -6,7 +6,6 @@
 
 void main(void) {
 
-  volatile unsigned int distance = 0;
   /* put your own code here */
     
   Init_TOF();
