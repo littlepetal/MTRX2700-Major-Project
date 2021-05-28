@@ -7,7 +7,7 @@
 void main(void) {
 
   volatile unsigned int distance = 10;
-
+  unsigned char buffer[128];
   /* put your own code here */
     
   Init_TOF();
@@ -32,16 +32,20 @@ void main(void) {
 	//PTH = 0x00;
 	
 	
-	while(1){
-	  distance = get_metres();
+	//while(1){
+	//  distance = get_metres();
 	  	
-	}  
+//	}  
 	
   
 	
 
 
   for(;;) {
+  
+    distance = get_metres();
+    sprintf(buffer,"%u",distance);
+    SCI1_OutString(buffer);
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */
   /* please make sure that you never leave main */
