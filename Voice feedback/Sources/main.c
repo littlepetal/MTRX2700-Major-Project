@@ -127,11 +127,7 @@ void main(void) {
   else{
     Voice = VoiceFall;
   }
-    
 
- 
- 
- 
   // Move data from array to structure //
   // Find number of notes in song (excluding rests) //
   j = 0;
