@@ -51,7 +51,7 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
     volatile unsigned int maxTimerCount = 65536;
     //volatile float prescaler = 2.0;
     
-    volatile unsigned int timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
+    volatile float timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
     
     volatile unsigned int distance = timeCount*(16.0/24000.0);
     

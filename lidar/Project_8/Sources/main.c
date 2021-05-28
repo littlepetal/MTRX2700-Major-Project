@@ -6,16 +6,17 @@
 
 void main(void) {
 
+  volatile unsigned int distance = 10;
+
   /* put your own code here */
     
   Init_TOF();
-  //Init_TC2();
-  Init_TC1();
+  Init_TC1();  
   
-  // Init_PTH();
-  
+  // set port H as output
   //DDRH = 0xFF;
   
+  // set port T as input
   DDRT = 0x00;
   
   reset_overflow_count();
@@ -30,18 +31,11 @@ void main(void) {
 	// trigger
 	//PTH = 0x00;
 	
-	/*
+	
 	while(1){
 	  distance = get_metres();
-	  
-	  if(distance <= 2){
-	  
-	    
-	  }
-	
-	  
-	
-	}   */
+	  	
+	}  
 	
   
 	
