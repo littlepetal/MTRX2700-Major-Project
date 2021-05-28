@@ -1,0 +1,87 @@
+#include "lidar.h"
+#include "timers.h"
+#include <math.h>
+#include "derivative.h"
+#include <hidef.h>
+
+
+
+
+volatile unsigned int metres = 0;
+volatile unsigned int edgesCount = 0;
+volatile unsigned int startCount = 0;
+volatile unsigned int endCount = 0;
+
+
+// set the number of metres to zero
+void reset_metres(void) {
+    metres = 0;
+}
+
+// set the number of edges encountered to zero
+void reset_edges_count(void) {
+    edgesCount = 0;
+}
+
+// set the starting timer count to zero
+void reset_start_count(void) {
+    startCount = 0;
+}
+
+// set the ending timer count to zero
+void reset_end_count(void) {
+    endCount = 0;
+}
+
+
+// returns the number of metres away from obstacle
+volatile unsigned int get_metres(void){
+    return metres;
+}
+
+// returns the number edges encountered in the PWM so far
+volatile unsigned int get_edges_count(void){
+    return edgesCount;
+}
+
+
+// calculates the distance from the obstacle in front using data provided by the lidar
+volatile unsigned int get_distance(volatile unsigned int startTimerCount, volatile unsigned int endTimerCount){
+    volatile unsigned int overflows = get_overflow_count();    
+    volatile unsigned int maxTimerCount = 65536;
+    //volatile float prescaler = 2.0;
+    
+    volatile unsigned int timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
+    
+    volatile unsigned int distance = timeCount*(16.0/24000.0);
+    
+    reset_overflow_count();
+        
+    return distance;    
+}
+
+
+
+
+//  added to the ISR vector table
+#pragma CODE_SEG __NEAR_SEG NON_BANKED
+__interrupt void TC1_ISR(void) { 
+  
+  // if PT1 is low, assume a falling edge is detected, record starting timer count
+  if(PTIT_PTIT1 == 0){
+    startCount = TC1;
+  }
+  
+  // if PT1 is high, assume a rising edge is detected, record ending timer count
+  if(PTIT_PTIT1 == 1){
+    endCount = TC1;
+    metres = get_distance(startCount, endCount);
+  }
+
+  //need to toggle rising/falling
+  //TCTL4 = TCTL4 ^ TCTL4_EDG1A_MASK;
+  //TCTL4 = TCTL4 ^ TCTL4_EDG1B_MASK;  
+    
+  TFLG1_C1F = 1;
+  edgesCount += 1;  
+} 
