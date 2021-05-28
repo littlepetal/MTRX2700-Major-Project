@@ -1,13 +1,17 @@
 #include <hidef.h>      /* common defines and macros */
+#include <stdlib.h>
+#include <stdio.h>
 #include "derivative.h"      /* derivative-specific definitions */
 #include "timers.h"
 #include "lidar.h"
+#include "simple_serial.h"
 
 
 void main(void) {
 
   volatile unsigned int distance = 10;
-  unsigned char buffer[128];
+  //int distance = 10;
+  unsigned char buffer[12];
   /* put your own code here */
     
   Init_TOF();
@@ -43,9 +47,11 @@ void main(void) {
 
   for(;;) {
   
+     //distance = 10;
     distance = get_metres();
-    sprintf(buffer,"%u",distance);
-    SCI1_OutString(buffer);
+    //sprintf(buffer,"%u\r\n",distance);
+    //SCI1_OutString(buffer);
+    
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */
   /* please make sure that you never leave main */
