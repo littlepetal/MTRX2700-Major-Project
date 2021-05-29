@@ -4,6 +4,7 @@
 #include "oc5_isr.h"
 #include "delay.h"
 
+
 volatile int dlycnt; // Delay count for 0C5
 volatile int length; // Length of music score, number of notes.
 volatile int notes_left;
@@ -72,13 +73,13 @@ struct Speaker Voice;
 
 void main(void) {
   /* put your own code here */
-  int j,voiceNumber,fallDown,acceleration;
+  int j,voiceNumber,fallDown,acceleration,toSerial;
   
   TCTL1 = 0x04; // sets 0C5 to toggle. When event occurs, will toggle PT5
   TIOS  = 0x20; // Selecting channel 5 as output compare
   TSCR1 = 0x90; // Enables timer. 0x90 would mean flag doesn't need to be reset
   TSCR2 = 0x07; // Sets prescaler division to 128. 187500Hz. T = 5.33us
-  TIE   = 0x20; // Sets interrupt caused by OC5
+  TIE   = 0x20; // Sets interrupt caused by oc5
 
   
   DDRT  = 0x20; // Sets PT5 to be output to speaker
@@ -88,7 +89,7 @@ void main(void) {
  
   acceleration = 0;
   fallDown = 0;
-  voiceNumber = 5;
+  voiceNumber = 3;
   
   //keep active alarm after fall down once//
   if(acceleration >= 1)
@@ -104,28 +105,27 @@ void main(void) {
   //voice conditions//
   if(fallDown == 0 && voiceNumber == 1){
     Voice = Voice1;
-    
+    toSerial = 1;
   }
   else if(fallDown == 0 && voiceNumber == 2){
     Voice = Voice2;
-  
+    toSerial = 2;
   }
   else if(fallDown == 0 && voiceNumber == 3){
     Voice = Voice3;
-  
+    toSerial = 3;
   }
   else if(fallDown == 0 && voiceNumber == 4){
     Voice = Voice4;
-  
+    toSerial = 4;
   }
   else if(fallDown == 0 && voiceNumber == 5){
     Voice = Voice5;
-    
+    toSerial = 5;
   } 
   else{
     Voice = VoiceFall;
-    
-    fallDown == 1;
+    toSerial = 6;
   }
   
   
