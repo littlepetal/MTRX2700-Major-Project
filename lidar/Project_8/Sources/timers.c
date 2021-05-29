@@ -9,7 +9,7 @@
 volatile unsigned int numberOfOverflows = 0;
 
 
-// set the number of timer overflows to zero
+// sets the number of timer overflows to zero
 void reset_overflow_count(void) {
     numberOfOverflows = 0;
 }
@@ -23,7 +23,7 @@ volatile unsigned int get_overflow_count(void){
 
 
 
-// set up the timers for timer overflow to use the interrupt
+// sets up the timers for timer overflow to use the interrupt
 void Init_TOF (void) {  
     TSCR1=0x80;
     TSCR2=0x84;   

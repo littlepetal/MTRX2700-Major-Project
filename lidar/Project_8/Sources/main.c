@@ -10,12 +10,14 @@
 void main(void) {
 
   volatile unsigned int distance = 0;
-  //int distance = 10;
+  
   unsigned char buffer[12];
-  /* put your own code here */
-    
+  
+  // initialise interrupts 
   Init_TOF();
-  Init_TC1();  
+  Init_TC1();
+  
+  // initialise serial interface  
   SCI1_Init(BAUD_9600);
   
   // set port H as output
@@ -24,32 +26,26 @@ void main(void) {
   // set port T as input
   DDRT = 0x00;
   
+  // initialise variables
   reset_overflow_count();
   reset_metres();
   reset_edges_count();
   reset_start_count();
   reset_end_count();  
 
+
 	EnableInterrupts;
 	
 	
 	// trigger
-	//PTH = 0x00;
+	//PTH = 0x00; 
 	
-	
-	//while(1){
-	//  distance = get_metres();
-	  	
-//	}  
-	
-  
-	
-
-
+ 
   for(;;) {
   
-     //distance = 10;
     distance = get_metres();
+    
+    // serial output distance in metres
     sprintf(buffer,"%u\r\n",distance);
     SCI1_OutString(buffer);
     

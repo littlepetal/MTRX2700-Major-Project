@@ -4,6 +4,7 @@
 #include "derivative.h"
 
 
+// sets the number of timer overflows to zero
 void reset_overflow_count(void);
 
                     

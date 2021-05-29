@@ -13,22 +13,22 @@ volatile unsigned int startCount = 0;
 volatile unsigned int endCount = 0;
 
 
-// set the number of metres to zero
+// sets the number of metres to zero
 void reset_metres(void) {
     metres = 0;
 }
 
-// set the number of edges encountered to zero
+// sets the number of edges encountered to zero
 void reset_edges_count(void) {
     edgesCount = 0;
 }
 
-// set the starting timer count to zero
+// sets the starting timer count to zero
 void reset_start_count(void) {
     startCount = 0;
 }
 
-// set the ending timer count to zero
+// sets the ending timer count to zero
 void reset_end_count(void) {
     endCount = 0;
 }
@@ -63,7 +63,7 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
 
 
 
-// set up the timers for channel 1 to use the interrupt
+// sets up the timers for channel 1 to use the interrupt
 void Init_TC1 (void) {
   TSCR1=0x80;
   TSCR2=0x84;
