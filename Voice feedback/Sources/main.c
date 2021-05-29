@@ -93,22 +93,12 @@ void main(void) {
   dlycnt = HiFreq; // set delay count for a high pitch
  
  
- 
-  //acceleration = 1;
-  //DDRH = 0x0;
-  //Button = PTH;
-  
-  //if(Button = 0xFE || acceleration == 0){
-    //fallDown = 0;
-  //} 
-  //else{
-    //fallDown = 1;
-  //}
   
   fallDown = 0;
   voiceNumber = 5;
   
-   
+  while{
+    
   if(fallDown == 0 && voiceNumber == 1){
     Voice = Voice1;
   }
@@ -126,6 +116,8 @@ void main(void) {
   } 
   else{
     Voice = VoiceFall;
+    break;
+  }
   }
 
   // Move data from array to structure //
