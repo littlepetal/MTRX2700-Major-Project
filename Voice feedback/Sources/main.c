@@ -21,7 +21,7 @@ volatile int notes_left;
                                   
 
 
-// Define structure //
+// Define structure of voice//
 struct Speaker {
   volatile unsigned int score[500]; 
   volatile unsigned int dur[500];
@@ -72,53 +72,65 @@ struct Speaker Voice;
 
 void main(void) {
   /* put your own code here */
-  int j,voiceNumber,fallDown,Button,acceleration;
+  int j,voiceNumber,fallDown,acceleration;
   
   TCTL1 = 0x04; // sets 0C5 to toggle. When event occurs, will toggle PT5
   TIOS  = 0x20; // Selecting channel 5 as output compare
   TSCR1 = 0x90; // Enables timer. 0x90 would mean flag doesn't need to be reset
   TSCR2 = 0x07; // Sets prescaler division to 128. 187500Hz. T = 5.33us
   TIE   = 0x20; // Sets interrupt caused by OC5
-  
-  // Configure LEDS for debugging //
-  DDRB = 0xFF;
-  DDRP = 0xFF;
-  DDRJ = 0xFF;
-  PTP  = 0x00;
-  PTJ   = 0x00;
-  PORTB = 0x00;
+
   
   DDRT  = 0x20; // Sets PT5 to be output to speaker
   
   dlycnt = HiFreq; // set delay count for a high pitch
  
  
-  
+  acceleration = 0;
   fallDown = 0;
   voiceNumber = 5;
   
-  while{
-    
+  //keep active alarm after fall down once//
+  if(acceleration >= 1)
+  {
+    fallDown = acceleration;
+  } 
+  else
+  {
+    fallDown = fallDown;
+  }
+  
+  
+  //voice conditions//
   if(fallDown == 0 && voiceNumber == 1){
     Voice = Voice1;
+    
   }
   else if(fallDown == 0 && voiceNumber == 2){
     Voice = Voice2;
+  
   }
   else if(fallDown == 0 && voiceNumber == 3){
     Voice = Voice3;
+  
   }
   else if(fallDown == 0 && voiceNumber == 4){
     Voice = Voice4;
+  
   }
   else if(fallDown == 0 && voiceNumber == 5){
     Voice = Voice5;
+    
   } 
   else{
     Voice = VoiceFall;
-    break;
+    
+    fallDown == 1;
   }
-  }
+  
+  
+  
+  
 
   // Move data from array to structure //
   // Find number of notes in song (excluding rests) //
