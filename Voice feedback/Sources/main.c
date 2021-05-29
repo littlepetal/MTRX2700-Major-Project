@@ -4,6 +4,7 @@
 #include "oc5_isr.h"
 #include "delay.h"
 
+
 volatile int dlycnt; // Delay count for 0C5
 volatile int length; // Length of music score, number of notes.
 volatile int notes_left;
@@ -78,7 +79,7 @@ void main(void) {
   TIOS  = 0x20; // Selecting channel 5 as output compare
   TSCR1 = 0x90; // Enables timer. 0x90 would mean flag doesn't need to be reset
   TSCR2 = 0x07; // Sets prescaler division to 128. 187500Hz. T = 5.33us
-  TIE   = 0x20; // Sets interrupt caused by OC5
+  TIE   = 0x20; // Sets interrupt caused by oc5
 
   
   DDRT  = 0x20; // Sets PT5 to be output to speaker
@@ -88,7 +89,7 @@ void main(void) {
  
   acceleration = 0;
   fallDown = 0;
-  voiceNumber = 5;
+  voiceNumber = 3;
   
   //keep active alarm after fall down once//
   if(acceleration >= 1)
