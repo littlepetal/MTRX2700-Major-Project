@@ -9,13 +9,14 @@
 
 void main(void) {
 
-  volatile unsigned int distance = 10;
+  volatile unsigned int distance = 0;
   //int distance = 10;
   unsigned char buffer[12];
   /* put your own code here */
     
   Init_TOF();
   Init_TC1();  
+  SCI1_Init(BAUD_9600);
   
   // set port H as output
   //DDRH = 0xFF;
@@ -49,8 +50,8 @@ void main(void) {
   
      //distance = 10;
     distance = get_metres();
-    //sprintf(buffer,"%u\r\n",distance);
-    //SCI1_OutString(buffer);
+    sprintf(buffer,"%u\r\n",distance);
+    SCI1_OutString(buffer);
     
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */
