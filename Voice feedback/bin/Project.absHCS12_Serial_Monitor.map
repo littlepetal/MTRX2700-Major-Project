@@ -28,7 +28,7 @@ _startupData is allocated at 0xC03B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1100     4006
-  _Copy    *toCopyDownBeg 0xC164
+  _Copy    *toCopyDownBeg 0xC169
 } _startupData;
 
 *********************************************************************************************
@@ -37,9 +37,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             59     R     0xC000     0xC03A   ROM_C000
 .startData                        10     R     0xC03B     0xC044   ROM_C000
-.text                            269     R     0xC045     0xC151   ROM_C000
-NON_BANKED                        10     R     0xC152     0xC15B   ROM_C000
-.copy                             41     R     0xC164     0xC18C   ROM_C000
+.text                            274     R     0xC045     0xC156   ROM_C000
+NON_BANKED                        10     R     0xC157     0xC160   ROM_C000
+.copy                             41     R     0xC169     0xC191   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                           2000   R/W     0x1100     0x18CF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -385,11 +385,11 @@ NON_BANKED                        10     R     0xC152     0xC15B   ROM_C000
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
 .common                         2006   R/W     0x18D0     0x20A5   RAM
-RUNTIME                            8     R     0xC15C     0xC163   ROM_C000
+RUNTIME                            8     R     0xC161     0xC168   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         20D (dec:      525)
+READ_ONLY (R):         212 (dec:      530)
 READ_WRITE (R/W):     10A6 (dec:     4262)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -749,7 +749,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C045      E2     226       6   .text       
+     main                                      C045      E7     231       6   .text       
 - VARIABLES:
      Voice3                                    1100     7D0    2000       8   .data       
      dlycnt                                    18D0       2       2       3   .common     
@@ -766,20 +766,20 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansisf.lib) --
 - PROCEDURES:
-     _COPY                                     C15C       8       8       2   RUNTIME     
+     _COPY                                     C161       8       8       2   RUNTIME     
 - VARIABLES:
 MODULE:                 -- oc5_isr.c.o --
 - PROCEDURES:
-     OC5_ISR                                   C152       8       8       1   NON_BANKED  
+     OC5_ISR                                   C157       8       8       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C15A       2       2      62   NON_BANKED  
+     UnimplementedISR                          C15F       2       2      62   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- delay.c.o --
 - PROCEDURES:
-     delay                                     C127      2B      43       1   .text       
+     delay                                     C12C      2B      43       1   .text       
 - VARIABLES:
 
 *********************************************************************************************
@@ -787,7 +787,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                  4006    226      0
+  main.c.o                                  4006    231      0
   Start12.c.o                                  0     59      0
   rtshc12.c.o (ansisf.lib)                     0      8      0
   oc5_isr.c.o                                  0      8      0
@@ -1847,11 +1847,11 @@ OBJECT LIST SORTED BY ADDRESS
      Voice                                     18D6     7D0    2000      13   .common     
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029      12      18       0   .init       
-     main                                      C045      E2     226       6   .text       
-     delay                                     C127      2B      43       1   .text       
-     OC5_ISR                                   C152       8       8       1   NON_BANKED  
-     UnimplementedISR                          C15A       2       2      62   NON_BANKED  
-     _COPY                                     C15C       8       8       2   RUNTIME     
+     main                                      C045      E7     231       6   .text       
+     delay                                     C12C      2B      43       1   .text       
+     OC5_ISR                                   C157       8       8       1   NON_BANKED  
+     UnimplementedISR                          C15F       2       2      62   NON_BANKED  
+     _COPY                                     C161       8       8       2   RUNTIME     
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
 *********************************************************************************************
@@ -1874,20 +1874,20 @@ rtshc12.c.o (ansisf.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC164 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC169 ---- SIZE       4 ---
 Filling bytes inserted
  00101100
-------- ROM-ADDRESS: 0xC168 ---- RAM-ADDRESS: 0x1100 ---- SIZE      16 ---
+------- ROM-ADDRESS: 0xC16D ---- RAM-ADDRESS: 0x1100 ---- SIZE      16 ---
 Name of initialized Object : Voice3
  012C000101 2C0001012C 0001012C00
  01
-------- ROM-ADDRESS: 0xC178 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC17D ---- SIZE       4 ---
 Filling bytes inserted
  000F14E9
-------- ROM-ADDRESS: 0xC17C ---- RAM-ADDRESS: 0x14E9 ---- SIZE      15 ---
+------- ROM-ADDRESS: 0xC181 ---- RAM-ADDRESS: 0x14E9 ---- SIZE      15 ---
 Name of initialized Object : Voice3:1001
  0600030006 0003000600 0300060002
-------- ROM-ADDRESS: 0xC18B ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC190 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1933,5 +1933,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 525
+Total size of all blocks to be downloaded: 530
 

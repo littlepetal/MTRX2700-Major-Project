@@ -73,7 +73,7 @@ struct Speaker Voice;
 
 void main(void) {
   /* put your own code here */
-  int j,voiceNumber,fallDown,acceleration;
+  int j,voiceNumber,fallDown,acceleration,toSerial;
   
   TCTL1 = 0x04; // sets 0C5 to toggle. When event occurs, will toggle PT5
   TIOS  = 0x20; // Selecting channel 5 as output compare
@@ -105,28 +105,27 @@ void main(void) {
   //voice conditions//
   if(fallDown == 0 && voiceNumber == 1){
     Voice = Voice1;
-    
+    toSerial = 1;
   }
   else if(fallDown == 0 && voiceNumber == 2){
     Voice = Voice2;
-  
+    toSerial = 2;
   }
   else if(fallDown == 0 && voiceNumber == 3){
     Voice = Voice3;
-  
+    toSerial = 3;
   }
   else if(fallDown == 0 && voiceNumber == 4){
     Voice = Voice4;
-  
+    toSerial = 4;
   }
   else if(fallDown == 0 && voiceNumber == 5){
     Voice = Voice5;
-    
+    toSerial = 5;
   } 
   else{
     Voice = VoiceFall;
-    
-    fallDown == 1;
+    toSerial = 6;
   }
   
   
