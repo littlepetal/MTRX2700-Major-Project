@@ -15,7 +15,7 @@ void main(void) {
   
   // initialise interrupts 
   Init_TOF();
-  Init_TC1();
+  Init_TC1();        // make it part of "Init_lidar"?
   
   // initialise serial interface  
   SCI1_Init(BAUD_9600);
@@ -24,9 +24,9 @@ void main(void) {
   //DDRH = 0xFF;
   
   // set port T as input
-  DDRT = 0x00;
+  DDRT = 0x00;                 // make it part of "Init_lidar"?
   
-  // initialise variables
+  // initialise variables      // make it part of "Init_lidar"?
   reset_overflow_count();
   reset_metres();
   reset_edges_count();

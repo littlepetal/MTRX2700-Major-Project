@@ -18,17 +18,17 @@ void reset_metres(void) {
     metres = 0;
 }
 
-// sets the number of edges encountered to zero
+// sets the number of edges encountered to zero             
 void reset_edges_count(void) {
     edgesCount = 0;
 }
 
-// sets the starting timer count to zero
+// sets the starting timer count to zero                    
 void reset_start_count(void) {
     startCount = 0;
 }
 
-// sets the ending timer count to zero
+// sets the ending timer count to zero                       
 void reset_end_count(void) {
     endCount = 0;
 }
@@ -39,7 +39,7 @@ volatile unsigned int get_metres(void){
     return metres;
 }
 
-// returns the number edges encountered in the PWM so far
+// returns the number edges encountered in the PWM so far     
 volatile unsigned int get_edges_count(void){
     return edgesCount;
 }
@@ -71,6 +71,7 @@ void Init_TC1 (void) {
   TIOS =0x00;     // set channel 1 to input capture
   
   // capture on both falling and rising edge
+  TCTL3 = 0x00;
   TCTL4_EDG1A = 1;
   TCTL4_EDG1B = 1; 
   
@@ -82,12 +83,12 @@ void Init_TC1 (void) {
 __interrupt void TC1_ISR(void) { 
   
   // if PT1 is low, assume a falling edge is detected, record starting timer count
-  if(PTIT_PTIT1 == 0){
+  if(PTIT_PTIT1 == 1){
     startCount = TC1;
   }
   
   // if PT1 is high, assume a rising edge is detected, record ending timer count
-  if(PTIT_PTIT1 == 1){
+  if(PTIT_PTIT1 == 0){
     endCount = TC1;
     metres = get_distance(startCount, endCount);
   }
