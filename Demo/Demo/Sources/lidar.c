@@ -33,6 +33,23 @@ void Init_Lidar (void){
 
 }
 
+void enable_lidar_interrupts(void){
+  Init_TC1();
+  DDRT = 0x00;
+}
+void disable_lidar_interrupts(void){
+  TIE = 0x00;
+}
+
+/*
+void enable_speaker_interrupts(void){
+  //Init_TC1();
+}
+void disable_speaker_interrupts(void){
+  TIE = 0x00;
+}
+*/
+
 
 
 
@@ -94,7 +111,6 @@ void Init_TC1 (void) {
   TIOS =0x00;     // set channel 1 to input capture
   
   // capture on both falling and rising edge
-  TCTL3 = 0x00;
   TCTL4_EDG1A = 1;
   TCTL4_EDG1B = 1; 
   
@@ -114,11 +130,7 @@ __interrupt void TC1_ISR(void) {
   if(PTIT_PTIT1 == 0){
     endCount = TC1;
     metres = get_distance(startCount, endCount);
-  }
-
-  //need to toggle rising/falling
-  //TCTL4 = TCTL4 ^ TCTL4_EDG1A_MASK;
-  //TCTL4 = TCTL4 ^ TCTL4_EDG1B_MASK;  
+  } 
     
   TFLG1_C1F = 1;
   edgesCount += 1;  

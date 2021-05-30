@@ -8,6 +8,9 @@
 void Init_Lidar (void);
 
 
+void enable_lidar_interrupts(void);
+void disable_lidar_interrupts(void);
+
 
 
 // sets the number of metres to zero                                // make it part of "Init_lidar"?

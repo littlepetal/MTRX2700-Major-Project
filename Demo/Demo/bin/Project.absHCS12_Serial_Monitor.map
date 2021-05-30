@@ -51,7 +51,7 @@ Section Name                    Size  Type     From       To       Segment
 .rodata1                           5     R     0xC153     0xC157   ROM_C000
 NON_BANKED                      1624     R     0xC158     0xC7AF   ROM_C000
 .copy                              2     R     0xC7B0     0xC7B1   ROM_C000
-.text                           3468     R   0x308000   0x308D8B   PAGE_30
+.text                           3465     R   0x308000   0x308D88   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
@@ -395,11 +395,12 @@ NON_BANKED                      1624     R     0xC158     0xC7AF   ROM_C000
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
-.bss                              19   R/W     0x1100     0x1112   RAM
+.bss                              17   R/W     0x1100     0x1110   RAM
+.common                            2   R/W     0x1111     0x1112   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):        15BE (dec:     5566)
+READ_ONLY (R):        15BB (dec:     5563)
 READ_WRITE (R/W):      113 (dec:      275)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -461,7 +462,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _TTOV                                       47       1       1       0   .abs_section_47
      _TCTL1                                      48       1       1       0   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
-     _TCTL3                                      4A       1       1       1   .abs_section_4a
+     _TCTL3                                      4A       1       1       0   .abs_section_4a
      _TCTL4                                      4B       1       1       2   .abs_section_4b
      _TIE                                        4C       1       1       1   .abs_section_4c
      _TSCR2                                      4D       1       1       2   .abs_section_4d
@@ -762,6 +763,7 @@ MODULE:                 -- main.c.o --
      main                                    308000      3A      58       2   .text       
 - VARIABLES:
      STRING..u...1                             C153       5       5       1   .rodata1    
+     dlycnt                                    1111       2       2       1   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                    30803A      29      41       2   .text       
@@ -853,7 +855,6 @@ MODULE:                 -- oc5_isr.c.o --
 - PROCEDURES:
      OC5_ISR                                   C76B       8       8       1   NON_BANKED  
 - VARIABLES:
-     dlycnt                                    1107       2       2       1   .bss        
 MODULE:                 -- timers.c.o --
 - PROCEDURES:
      reset_overflow_count                    308C57       6       6       4   .text       
@@ -861,7 +862,7 @@ MODULE:                 -- timers.c.o --
      Init_TOF                                308C61       8       8       2   .text       
      TOF_ISR                                   C773       C      12       1   NON_BANKED  
 - VARIABLES:
-     numberOfOverflows                         1109       2       2       4   .bss        
+     numberOfOverflows                         1107       2       2       4   .bss        
 MODULE:                 -- simple_serial.c.o --
 - PROCEDURES:
      SCI1_Init                               308C69      5A      90       2   .text       
@@ -877,13 +878,13 @@ MODULE:                 -- lidar.c.o --
      reset_end_count                         308D0E       6       6       2   .text       
      get_metres                              308D14       4       4       2   .text       
      get_distance                            308D18      5C      92       2   .text       
-     Init_TC1                                308D74      18      24       2   .text       
+     Init_TC1                                308D74      15      21       2   .text       
      TC1_ISR                                   C77F      2F      47       1   NON_BANKED  
 - VARIABLES:
-     metres                                    110B       2       2       3   .bss        
-     edgesCount                                110D       2       2       3   .bss        
-     startCount                                110F       2       2       3   .bss        
-     endCount                                  1111       2       2       3   .bss        
+     metres                                    1109       2       2       3   .bss        
+     edgesCount                                110B       2       2       3   .bss        
+     startCount                                110D       2       2       3   .bss        
+     endCount                                  110F       2       2       3   .bss        
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
      UnimplementedISR                          C7AE       2       2      60   NON_BANKED  
@@ -895,7 +896,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     58      5
+  main.c.o                                     2     58      5
   Start12.c.o                                  0     62      0
   PRINTF.C.o (ansibf.lib)                      7   3060    308
   DADD.C.o (ansibf.lib)                        0    253      0
@@ -906,10 +907,10 @@ MODULE STATISTIC
   DREGS.C.o (ansibf.lib)                       0    384      0
   rtshc12.c.o (ansibf.lib)                     0    359      0
   VREGS.C.o (ansibf.lib)                       0     18      0
-  oc5_isr.c.o                                  2      8      0
+  oc5_isr.c.o                                  0      8      0
   timers.c.o                                   2     30      0
   simple_serial.c.o                            0    115      0
-  lidar.c.o                                    8    223      0
+  lidar.c.o                                    8    220      0
   isr_vectors.c.o                              0      2    126
   other                                      256     12      2
 
@@ -922,7 +923,7 @@ SECTION: ".text"
   reset_metres reset_edges_count reset_start_count reset_end_count get_metres 
   get_distance Init_TC1 
 SECTION: ".bss"
-  pbuf dlycnt numberOfOverflows metres edgesCount startCount endCount 
+  pbuf numberOfOverflows metres edgesCount startCount endCount 
 SECTION: ".init"
   _Startup 
 SECTION: ".rodata"
@@ -1618,6 +1619,8 @@ SECTION: ".abs_section_2ae"
   _CAN4RXTSR 
 SECTION: ".abs_section_2be"
   _CAN4TXTSR 
+SECTION: ".common"
+  dlycnt 
 SECTION: ".abs_section_ff80"
   _vect 
 
@@ -1674,7 +1677,7 @@ OBJECT LIST SORTED BY ADDRESS
      _TTOV                                       47       1       1       0   .abs_section_47
      _TCTL1                                      48       1       1       0   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
-     _TCTL3                                      4A       1       1       1   .abs_section_4a
+     _TCTL3                                      4A       1       1       0   .abs_section_4a
      _TCTL4                                      4B       1       1       2   .abs_section_4b
      _TIE                                        4C       1       1       1   .abs_section_4c
      _TSCR2                                      4D       1       1       2   .abs_section_4d
@@ -1967,12 +1970,12 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
      pbuf                                      1100       7       7      16   .bss        
-     dlycnt                                    1107       2       2       1   .bss        
-     numberOfOverflows                         1109       2       2       4   .bss        
-     metres                                    110B       2       2       3   .bss        
-     edgesCount                                110D       2       2       3   .bss        
-     startCount                                110F       2       2       3   .bss        
-     endCount                                  1111       2       2       3   .bss        
+     numberOfOverflows                         1107       2       2       4   .bss        
+     metres                                    1109       2       2       3   .bss        
+     edgesCount                                110B       2       2       3   .bss        
+     startCount                                110D       2       2       3   .bss        
+     endCount                                  110F       2       2       3   .bss        
+     dlycnt                                    1111       2       2       1   .common     
      _Startup                                  C000      15      21       0   .init       
      pow10                                     C01F      28      40       6   .rodata     
      pow16                                     C047      20      32       4   .rodata     
@@ -2046,7 +2049,7 @@ OBJECT LIST SORTED BY ADDRESS
      reset_end_count                         308D0E       6       6       2   .text       
      get_metres                              308D14       4       4       2   .text       
      get_distance                            308D18      5C      92       2   .text       
-     Init_TC1                                308D74      18      24       2   .text       
+     Init_TC1                                308D74      15      21       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -2072,8 +2075,10 @@ rtshc12.c.o (ansibf.lib):
 VREGS.C.o (ansibf.lib):
   SL_PULK 
 lidar.c.o:
-  get_edges_count 
+  enable_lidar_interrupts disable_lidar_interrupts get_edges_count 
 NOT USED VARIABLES
+main.c.o:
+  Voice1 Voice2 Voice3 Voice4 Voice5 VoiceFall length notes_left Voice 
 DANSI.C.o (ansibf.lib):
   infinity errno 
 rtshc12.c.o (ansibf.lib):
@@ -2141,7 +2146,7 @@ reset_end_count           USES endCount
 get_metres                USES metres 
 get_distance              USES get_overflow_count _DUFLOAT _DMUL _DUTRUNC 
                                 reset_overflow_count 
-Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL3 _TCTL4 _TIE 
+Init_TC1                  USES _TSCR1 _TSCR2 _TIOS _TCTL4 _TIE 
 
 *********************************************************************************************
 DEPENDENCY TREE
@@ -2329,5 +2334,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 5566
+Total size of all blocks to be downloaded: 5563
 
