@@ -23,7 +23,7 @@ void main(void) {
   
   // initialises the lidar
   Init_Lidar();
-  InitSpeaker();
+  //InitSpeaker();
   
   // initialise serial interface  
   SCI1_Init(BAUD_9600); 
