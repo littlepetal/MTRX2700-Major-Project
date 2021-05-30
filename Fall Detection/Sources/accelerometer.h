@@ -17,6 +17,18 @@ typedef struct AccelScaled {
   float z;
 } AccelScaled;
 
+typedef struct fall_output {
+  int   alert;
+  int   count;
+  int   emergency;
+  AccelScaled prev_output;
+} fall_output;
+
 void convertUnits(AccelRaw *raw_data, AccelScaled *scaled_data);
+void MSDelay(unsigned int);
+fall_output init_fall_output(fall_output input_struct);
+int is_standing(AccelScaled accel_measurement);
+int has_fallen(AccelScaled current_measurement,AccelScaled prev_measurement);
+fall_output fall_detect(fall_output prev_output);
 
 #endif
