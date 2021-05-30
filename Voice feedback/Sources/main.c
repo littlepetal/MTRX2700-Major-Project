@@ -88,17 +88,13 @@ void main(void) {
  
  
   acceleration = 0;
-  fallDown = 0;
+  fallDown = 1;
   voiceNumber = 3;
   
   //keep active alarm after fall down once//
-  if(acceleration >= 1)
+  while(acceleration >= 1)
   {
-    fallDown = acceleration;
-  } 
-  else
-  {
-    fallDown = fallDown;
+    fallDown = 0;
   }
   
   
@@ -137,6 +133,7 @@ void main(void) {
   j = 0;
   length = 0;
   while(1) {
+    
     if (Voice.score[j] == 0) {
       break;
     } else if (Voice.score[j] == 1) {
