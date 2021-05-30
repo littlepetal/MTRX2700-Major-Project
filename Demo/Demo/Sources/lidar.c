@@ -34,6 +34,7 @@ void Init_Lidar (void){
 }
 
 void enable_lidar_interrupts(void){
+  Init_TOF();
   Init_TC1();
   DDRT = 0x00;
 }
@@ -93,7 +94,8 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
     
     volatile unsigned int timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
     
-    volatile unsigned int distance = timeCount*(16.0/24000.0);
+    //volatile unsigned int distance = timeCount*(16.0/24000.0);
+    volatile unsigned int distance = timeCount*(128.0/24000.0);
     
     reset_overflow_count();
         
@@ -106,7 +108,8 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
 // sets up the timers for channel 1 to use the interrupt
 void Init_TC1 (void) {
   TSCR1=0x80;
-  TSCR2=0x84;
+  //TSCR2=0x84;
+  TSCR2=0x87;
   
   TIOS =0x00;     // set channel 1 to input capture
   
