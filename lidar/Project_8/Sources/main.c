@@ -13,36 +13,18 @@ void main(void) {
   
   unsigned char buffer[12];
   
-  // initialise interrupts 
-  Init_TOF();
-  Init_TC1();        // make it part of "Init_lidar"?
+  // initialises the lidar
+  Init_Lidar();
   
   // initialise serial interface  
   SCI1_Init(BAUD_9600);
-  
-  // set port H as output
-  //DDRH = 0xFF;
-  
-  // set port T as input
-  DDRT = 0x00;                 // make it part of "Init_lidar"?
-  
-  // initialise variables      // make it part of "Init_lidar"?
-  reset_overflow_count();
-  reset_metres();
-  reset_edges_count();
-  reset_start_count();
-  reset_end_count();  
 
 
 	EnableInterrupts;
 	
-	
-	// trigger
-	//PTH = 0x00; 
-	
  
   for(;;) {
-  
+    // calculate the distance from the lidar to the closest obstacle
     distance = get_metres();
     
     // serial output distance in metres

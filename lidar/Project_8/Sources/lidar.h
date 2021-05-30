@@ -4,6 +4,10 @@
 #include "derivative.h"
 
 
+// initialises the lidar module
+void Init_Lidar (void);
+
+
 
 
 // sets the number of metres to zero                                // make it part of "Init_lidar"?
@@ -17,6 +21,8 @@ void reset_start_count(void);
 
 // sets the ending timer count to zero                              // place in private interface?
 void reset_end_count(void);
+
+
 
 
 // returns the number of metres away from obstacle
@@ -36,6 +42,9 @@ void Init_TC1 (void);
 
 // timer interrupt definition                                        // place in private interface/testing module?
 __interrupt void TC1_ISR(void);
+
+
+
 
 
 #endif
