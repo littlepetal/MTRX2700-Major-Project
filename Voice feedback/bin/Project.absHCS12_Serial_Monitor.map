@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "C:\Users\ASUS\Documents\GitHub\psychic-octo-waffle\Voice feedback\bin\Project.absHCS12_Serial_Monitor.abs"
+PROGRAM "D:\Documents\GitHub\MTRX2700-Major-Project\Voice feedback\bin\Project.absHCS12_Serial_Monitor.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -19,6 +19,7 @@ rtshc12.c.o (ansisf.lib)                Model: SMALL,         Lang: ANSI-C
 oc5_isr.c.o                             Model: SMALL,         Lang: ANSI-C
 isr_vectors.c.o                         Model: SMALL,         Lang: ANSI-C
 delay.c.o                               Model: SMALL,         Lang: ANSI-C
+voice.c.o                               Model: SMALL,         Lang: ANSI-C
 
 *********************************************************************************************
 STARTUP SECTION
@@ -27,8 +28,8 @@ Entry point: 0xC029 (_Startup)
 _startupData is allocated at 0xC03B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
-  _Range   pZeroOut       0x1100     4006
-  _Copy    *toCopyDownBeg 0xC175
+  _Range   pZeroOut       0x1100     8406
+  _Copy    *toCopyDownBeg 0xC258
 } _startupData;
 
 *********************************************************************************************
@@ -37,11 +38,11 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             59     R     0xC000     0xC03A   ROM_C000
 .startData                        10     R     0xC03B     0xC044   ROM_C000
-.text                            286     R     0xC045     0xC162   ROM_C000
-NON_BANKED                        10     R     0xC163     0xC16C   ROM_C000
-.copy                            104     R     0xC175     0xC1DC   ROM_C000
+.text                            513     R     0xC045     0xC245   ROM_C000
+NON_BANKED                        10     R     0xC246     0xC24F   ROM_C000
+.copy                            289     R     0xC258     0xC378   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
-.data                           2000   R/W     0x1100     0x18CF   RAM
+.data                           7200   R/W     0x1100     0x2D1F   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
 .abs_section_9                     1   N/I        0x9        0x9   .absSeg1
 .abs_section_a                     1   N/I        0xA        0xA   .absSeg2
@@ -384,13 +385,13 @@ NON_BANKED                        10     R     0xC163     0xC16C   ROM_C000
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
-.common                         2006   R/W     0x18D0     0x20A5   RAM
-RUNTIME                            8     R     0xC16D     0xC174   ROM_C000
+RUNTIME                            8     R     0xC250     0xC257   ROM_C000
+.common                         1206   R/W     0x2D20     0x31D5   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         25D (dec:      605)
-READ_WRITE (R/W):     10A6 (dec:     4262)
+READ_ONLY (R):         3F9 (dec:     1017)
+READ_WRITE (R/W):     21D6 (dec:     8662)
 NO_INIT (N/I):         190 (dec:      400)
 
 *********************************************************************************************
@@ -607,9 +608,9 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PPSM                                      255       1       1       0   .abs_section_255
      _WOMM                                      256       1       1       0   .abs_section_256
      _MODRR                                     257       1       1       0   .abs_section_257
-     _PTP                                       258       1       1       1   .abs_section_258
+     _PTP                                       258       1       1       0   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
-     _DDRP                                      25A       1       1       1   .abs_section_25a
+     _DDRP                                      25A       1       1       0   .abs_section_25a
      _RDRP                                      25B       1       1       0   .abs_section_25b
      _PERP                                      25C       1       1       0   .abs_section_25c
      _PPSP                                      25D       1       1       0   .abs_section_25d
@@ -623,9 +624,9 @@ MODULE:                 -- mc9s12dg256.c.o --
      _PPSH                                      265       1       1       0   .abs_section_265
      _PIEH                                      266       1       1       0   .abs_section_266
      _PIFH                                      267       1       1       0   .abs_section_267
-     _PTJ                                       268       1       1       1   .abs_section_268
+     _PTJ                                       268       1       1       0   .abs_section_268
      _PTIJ                                      269       1       1       0   .abs_section_269
-     _DDRJ                                      26A       1       1       1   .abs_section_26a
+     _DDRJ                                      26A       1       1       0   .abs_section_26a
      _RDRJ                                      26B       1       1       0   .abs_section_26b
      _PERJ                                      26C       1       1       0   .abs_section_26c
      _PPSJ                                      26D       1       1       0   .abs_section_26d
@@ -688,8 +689,8 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXDSR7                                2BB       1       1       0   .abs_section_2bb
      _CAN4TXDLR                                 2BC       1       1       0   .abs_section_2bc
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
-     _PORTAB                                      0       2       2       1   .abs_section_0
-     _DDRAB                                       2       2       2       1   .abs_section_2
+     _PORTAB                                      0       2       2       0   .abs_section_0
+     _DDRAB                                       2       2       2       0   .abs_section_2
      _PARTID                                     1A       2       2       0   .abs_section_1a
      _TCNT                                       44       2       2       2   .abs_section_44
      _TC0                                        50       2       2       0   .abs_section_50
@@ -749,13 +750,8 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C045      F3     243       6   .text       
+     main                                      C045      11      17       1   .text       
 - VARIABLES:
-     Voice5                                    1100     7D0    2000       8   .data       
-     dlycnt                                    18D0       2       2       3   .common     
-     length                                    18D2       2       2       4   .common     
-     notes_left                                18D4       2       2       3   .common     
-     Voice                                     18D6     7D0    2000      13   .common     
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
      Init                                      C000      29      41       1   .init       
@@ -766,42 +762,58 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansisf.lib) --
 - PROCEDURES:
-     _COPY                                     C16D       8       8       2   RUNTIME     
+     _COPY                                     C250       8       8       5   RUNTIME     
 - VARIABLES:
 MODULE:                 -- oc5_isr.c.o --
 - PROCEDURES:
-     OC5_ISR                                   C163       8       8       1   NON_BANKED  
+     OC5_ISR                                   C246       8       8       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C16B       2       2      62   NON_BANKED  
+     UnimplementedISR                          C24E       2       2      62   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- delay.c.o --
 - PROCEDURES:
-     delay                                     C138      2B      43       1   .text       
+     delay                                     C056      2B      43       1   .text       
 - VARIABLES:
+MODULE:                 -- voice.c.o --
+- PROCEDURES:
+     InitSpeaker                               C081      1B      27       1   .text       
+     voice                                     C09C     1AA     426      32   .text       
+- VARIABLES:
+     Voice1                                    1100     4B0    1200       5   .data       
+     Voice2                                    15B0     4B0    1200       5   .data       
+     Voice3                                    1A60     4B0    1200       5   .data       
+     Voice4                                    1F10     4B0    1200       5   .data       
+     Voice5                                    23C0     4B0    1200       5   .data       
+     VoiceFall                                 2870     4B0    1200       5   .data       
+     dlycnt                                    2D20       2       2       3   .common     
+     length                                    2D22       2       2       4   .common     
+     notes_left                                2D24       2       2       3   .common     
+     Voice                                     2D26     4B0    1200      15   .common     
 
 *********************************************************************************************
 MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                  4006    243      0
+  main.c.o                                     0     17      0
   Start12.c.o                                  0     59      0
   rtshc12.c.o (ansisf.lib)                     0      8      0
   oc5_isr.c.o                                  0      8      0
   isr_vectors.c.o                              0      2    126
   delay.c.o                                    0     43      0
-  other                                      256     12    104
+  voice.c.o                                 8406    453      0
+  other                                      256     12    289
 
 *********************************************************************************************
 SECTION USE IN OBJECT-ALLOCATION SECTION
 ---------------------------------------------------------------------------------------------
 SECTION: ".text"
-  main delay 
+  main delay InitSpeaker voice 
 SECTION: ".data"
-  Voice5 
+  Voice1 Voice2 Voice3 Voice4 Voice5 VoiceFall 
 SECTION: ".init"
   Init _Startup 
 SECTION: "NON_BANKED"
@@ -1488,10 +1500,10 @@ SECTION: ".abs_section_2ae"
   _CAN4RXTSR 
 SECTION: ".abs_section_2be"
   _CAN4TXTSR 
-SECTION: ".common"
-  dlycnt length notes_left Voice 
 SECTION: "RUNTIME"
   _COPY 
+SECTION: ".common"
+  dlycnt length notes_left Voice 
 SECTION: ".abs_section_ff80"
   _vect 
 
@@ -1499,8 +1511,8 @@ SECTION: ".abs_section_ff80"
 OBJECT LIST SORTED BY ADDRESS
      Name                                      Addr   hSize   dSize     Ref    Section   RLIB
 ---------------------------------------------------------------------------------------------
-     _PORTAB                                      0       2       2       1   .abs_section_0
-     _DDRAB                                       2       2       2       1   .abs_section_2
+     _PORTAB                                      0       2       2       0   .abs_section_0
+     _DDRAB                                       2       2       2       0   .abs_section_2
      _PORTE                                       8       1       1       0   .abs_section_8
      _DDRE                                        9       1       1       0   .abs_section_9
      _PEAR                                        A       1       1       0   .abs_section_a
@@ -1757,9 +1769,9 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSM                                      255       1       1       0   .abs_section_255
      _WOMM                                      256       1       1       0   .abs_section_256
      _MODRR                                     257       1       1       0   .abs_section_257
-     _PTP                                       258       1       1       1   .abs_section_258
+     _PTP                                       258       1       1       0   .abs_section_258
      _PTIP                                      259       1       1       0   .abs_section_259
-     _DDRP                                      25A       1       1       1   .abs_section_25a
+     _DDRP                                      25A       1       1       0   .abs_section_25a
      _RDRP                                      25B       1       1       0   .abs_section_25b
      _PERP                                      25C       1       1       0   .abs_section_25c
      _PPSP                                      25D       1       1       0   .abs_section_25d
@@ -1773,9 +1785,9 @@ OBJECT LIST SORTED BY ADDRESS
      _PPSH                                      265       1       1       0   .abs_section_265
      _PIEH                                      266       1       1       0   .abs_section_266
      _PIFH                                      267       1       1       0   .abs_section_267
-     _PTJ                                       268       1       1       1   .abs_section_268
+     _PTJ                                       268       1       1       0   .abs_section_268
      _PTIJ                                      269       1       1       0   .abs_section_269
-     _DDRJ                                      26A       1       1       1   .abs_section_26a
+     _DDRJ                                      26A       1       1       0   .abs_section_26a
      _RDRJ                                      26B       1       1       0   .abs_section_26b
      _PERJ                                      26C       1       1       0   .abs_section_26c
      _PPSJ                                      26D       1       1       0   .abs_section_26d
@@ -1840,18 +1852,25 @@ OBJECT LIST SORTED BY ADDRESS
      _CAN4TXDLR                                 2BC       1       1       0   .abs_section_2bc
      _CAN4TXTBPR                                2BD       1       1       0   .abs_section_2bd
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
-     Voice5                                    1100     7D0    2000       8   .data       
-     dlycnt                                    18D0       2       2       3   .common     
-     length                                    18D2       2       2       4   .common     
-     notes_left                                18D4       2       2       3   .common     
-     Voice                                     18D6     7D0    2000      13   .common     
+     Voice1                                    1100     4B0    1200       5   .data       
+     Voice2                                    15B0     4B0    1200       5   .data       
+     Voice3                                    1A60     4B0    1200       5   .data       
+     Voice4                                    1F10     4B0    1200       5   .data       
+     Voice5                                    23C0     4B0    1200       5   .data       
+     VoiceFall                                 2870     4B0    1200       5   .data       
+     dlycnt                                    2D20       2       2       3   .common     
+     length                                    2D22       2       2       4   .common     
+     notes_left                                2D24       2       2       3   .common     
+     Voice                                     2D26     4B0    1200      15   .common     
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029      12      18       0   .init       
-     main                                      C045      F3     243       6   .text       
-     delay                                     C138      2B      43       1   .text       
-     OC5_ISR                                   C163       8       8       1   NON_BANKED  
-     UnimplementedISR                          C16B       2       2      62   NON_BANKED  
-     _COPY                                     C16D       8       8       2   RUNTIME     
+     main                                      C045      11      17       1   .text       
+     delay                                     C056      2B      43       1   .text       
+     InitSpeaker                               C081      1B      27       1   .text       
+     voice                                     C09C     1AA     426      32   .text       
+     OC5_ISR                                   C246       8       8       1   NON_BANKED  
+     UnimplementedISR                          C24E       2       2      62   NON_BANKED  
+     _COPY                                     C250       8       8       5   RUNTIME     
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
 *********************************************************************************************
@@ -1866,33 +1885,94 @@ rtshc12.c.o (ansisf.lib):
   _CASE_CHECKED_BYTE _CASE_SEARCH _CASE_SEARCH_BYTE _CASE_SEARCH_8 
   _CASE_SEARCH_8_BYTE _FCALL _FPCMP 
 NOT USED VARIABLES
-main.c.o:
-  Voice1 Voice2 Voice3 Voice4 VoiceFall 
 rtshc12.c.o (ansisf.lib):
   _PowOfTwo_8 _PowOfTwo_16 _PowOfTwo_32 errno 
 
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC175 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC258 ---- SIZE       4 ---
 Filling bytes inserted
- 002F1101
-------- ROM-ADDRESS: 0xC179 ---- RAM-ADDRESS: 0x1101 ---- SIZE      47 ---
+ 00081100
+------- ROM-ADDRESS: 0xC25C ---- RAM-ADDRESS: 0x1100 ---- SIZE       8 ---
+Name of initialized Object : Voice1
+ 01F4000101 F40001
+------- ROM-ADDRESS: 0xC264 ---- SIZE       4 ---
+Filling bytes inserted
+ 00071359
+------- ROM-ADDRESS: 0xC268 ---- RAM-ADDRESS: 0x1359 ---- SIZE       7 ---
+Name of initialized Object : Voice1:601
+ 0C0006000C 0005
+------- ROM-ADDRESS: 0xC26F ---- SIZE       4 ---
+Filling bytes inserted
+ 000C15B0
+------- ROM-ADDRESS: 0xC273 ---- RAM-ADDRESS: 0x15B0 ---- SIZE      12 ---
+Name of initialized Object : Voice2
+ 0190000101 9000010190 0001
+------- ROM-ADDRESS: 0xC27F ---- SIZE       4 ---
+Filling bytes inserted
+ 000B1809
+------- ROM-ADDRESS: 0xC283 ---- RAM-ADDRESS: 0x1809 ---- SIZE      11 ---
+Name of initialized Object : Voice2:601
+ 0800040008 0004000800 03
+------- ROM-ADDRESS: 0xC28E ---- SIZE       4 ---
+Filling bytes inserted
+ 00101A60
+------- ROM-ADDRESS: 0xC292 ---- RAM-ADDRESS: 0x1A60 ---- SIZE      16 ---
+Name of initialized Object : Voice3
+ 012C000101 2C0001012C 0001012C00
+ 01
+------- ROM-ADDRESS: 0xC2A2 ---- SIZE       4 ---
+Filling bytes inserted
+ 000F1CB9
+------- ROM-ADDRESS: 0xC2A6 ---- RAM-ADDRESS: 0x1CB9 ---- SIZE      15 ---
+Name of initialized Object : Voice3:601
+ 0600030006 0003000600 0300060002
+------- ROM-ADDRESS: 0xC2B5 ---- SIZE       4 ---
+Filling bytes inserted
+ 00171F11
+------- ROM-ADDRESS: 0xC2B9 ---- RAM-ADDRESS: 0x1F11 ---- SIZE      23 ---
+Name of initialized Object : Voice4:1
+ C8000100C8 000100C800 0100C80001
+ 00C8000100 C80001
+------- ROM-ADDRESS: 0xC2D0 ---- SIZE       4 ---
+Filling bytes inserted
+ 00172169
+------- ROM-ADDRESS: 0xC2D4 ---- RAM-ADDRESS: 0x2169 ---- SIZE      23 ---
+Name of initialized Object : Voice4:601
+ 0400020004 0002000400 0200040002
+ 0004000100 040001
+------- ROM-ADDRESS: 0xC2EB ---- SIZE       4 ---
+Filling bytes inserted
+ 002F23C1
+------- ROM-ADDRESS: 0xC2EF ---- RAM-ADDRESS: 0x23C1 ---- SIZE      47 ---
 Name of initialized Object : Voice5:1
  6400010064 0001006400 0100640001
  0064000100 6400010064 0001006400
  0100640001 0064000100 6400010064
  0001
-------- ROM-ADDRESS: 0xC1A8 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC31E ---- SIZE       4 ---
 Filling bytes inserted
- 002F14E9
-------- ROM-ADDRESS: 0xC1AC ---- RAM-ADDRESS: 0x14E9 ---- SIZE      47 ---
-Name of initialized Object : Voice5:1001
+ 002F2619
+------- ROM-ADDRESS: 0xC322 ---- RAM-ADDRESS: 0x2619 ---- SIZE      47 ---
+Name of initialized Object : Voice5:601
  0200010002 0001000200 0100020001
  0002000100 0200010002 0001000200
  0100020001 0002000100 0200010002
  0001
-------- ROM-ADDRESS: 0xC1DB ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC351 ---- SIZE       4 ---
+Filling bytes inserted
+ 000F2871
+------- ROM-ADDRESS: 0xC355 ---- RAM-ADDRESS: 0x2871 ---- SIZE      15 ---
+Name of initialized Object : VoiceFall:1
+ 6401900064 0190006401 9000640190
+------- ROM-ADDRESS: 0xC364 ---- SIZE       4 ---
+Filling bytes inserted
+ 000F2AC9
+------- ROM-ADDRESS: 0xC368 ---- RAM-ADDRESS: 0x2AC9 ---- SIZE      15 ---
+Name of initialized Object : VoiceFall:601
+ 0300020003 0002000300 0200030002
+------- ROM-ADDRESS: 0xC377 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -1901,10 +1981,12 @@ OBJECT-DEPENDENCIES SECTION
 ---------------------------------------------------------------------------------------------
 Init                      USES _startupData 
 _Startup                  USES __SEG_END_SSTACK Init main 
-main                      USES _TCTL1 _TIOS _TSCR1 _TSCR2 _TIE _DDRAB _DDRP 
-                                _DDRJ _PTP _PTJ _PORTAB _DDRT dlycnt Voice Voice5 
-                                main _COPY length notes_left _TCNT _TC5 delay 
+main                      USES InitSpeaker voice 
 delay                     USES _TIOS _TCNT _TC6 _TFLG1 
+InitSpeaker               USES _TCTL1 _TIOS _TSCR1 _TSCR2 _TIE _DDRT dlycnt 
+voice                     USES Voice Voice1 voice Voice2 Voice3 Voice4 Voice5 
+                                VoiceFall length notes_left _TCNT _TC5 dlycnt delay 
+                                _COPY 
 OC5_ISR                   USES _TC5 dlycnt 
 _vect                     USES UnimplementedISR OC5_ISR 
 
@@ -1915,10 +1997,14 @@ DEPENDENCY TREE
  | 
  +- main                
  |  | 
- |  +- _COPY               
+ |  +- InitSpeaker         
  |  |    
- |  +- delay               
- |       
+ |  +- voice               
+ |     | 
+ |     +- delay               
+ |     |    
+ |     +- _COPY               
+ |          
  +- _Startup            
     | 
     +- Init                
@@ -1938,5 +2024,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 605
+Total size of all blocks to be downloaded: 1017
 
