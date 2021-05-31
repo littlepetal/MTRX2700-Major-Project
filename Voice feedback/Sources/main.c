@@ -9,10 +9,10 @@
 void main(void){
     
   InitSpeaker();
-  
+
   while(1)
   {  
-  voice(2,0);
+  voice(4,1);//voice(distance, condition of fall down)
   }
   
 	EnableInterrupts;

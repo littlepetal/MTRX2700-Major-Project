@@ -1,8 +1,10 @@
 #include <hidef.h>      /* common defines and macros */
-#include <string.h>
+#include <stdlib.h>
+#include <stdio.h>
 #include "derivative.h"      /* derivative-specific definitions */
 #include "oc5_isr.h"
 #include "delay.h"
+#include "simple_serial.h"
 
 
 volatile int dlycnt; // Delay count for 0C5
@@ -89,34 +91,35 @@ void voice(int voiceNumber,int fallDown) {
   /* put your own code here */
   
   int j,toSerial;
+  unsigned char bufferVoice[12];
  
-  
-  
-  //voice conditions//
-  if(fallDown == 0 && voiceNumber == 1){
+     
+  //voice conditions//  
+  if(fallDown == 0 && voiceNumber == 5){
     Voice = Voice1;
     toSerial = 1;
   }
-  else if(fallDown == 0 && voiceNumber == 2){
+  if(fallDown == 0 && voiceNumber == 4){
     Voice = Voice2;
     toSerial = 2;
   }
-  else if(fallDown == 0 && voiceNumber == 3){
+  if(fallDown == 0 && voiceNumber == 3){
     Voice = Voice3;
     toSerial = 3;
   }
-  else if(fallDown == 0 && voiceNumber == 4){
+  if(fallDown == 0 && voiceNumber == 2){
     Voice = Voice4;
     toSerial = 4;
   }
-  else if(fallDown == 0 && voiceNumber == 5){
+  if(fallDown == 0 && voiceNumber == 1){
     Voice = Voice5;
     toSerial = 5;
   } 
-  else{
+  if(fallDown == 1){
     Voice = VoiceFall;
     toSerial = 6;
   }
+  
   
    
 
@@ -171,6 +174,11 @@ void voice(int voiceNumber,int fallDown) {
 
 
   for(;;) {
+  
+  sprintf(bufferVoice,"%u\r\n",toSerial);
+  SCI1_OutString(bufferVoice);
+  
+  
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */
   /* please make sure that you never leave main */
