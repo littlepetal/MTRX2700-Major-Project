@@ -185,7 +185,14 @@ void main(void) {
       TSCR1_TFFCA = 0;   // disable timer fast flag clear all bits
       
       // serial output distance in metres
-      sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
+      
+      // for usage with Matlab
+      //sprintf(buffer,"%u\r\n",distance);
+      
+      // for usage with PuTTY
+      //sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
+      
+      sprintf(buffer,"%u\r\n",1);
       SCI1_OutString(buffer);
       
 
