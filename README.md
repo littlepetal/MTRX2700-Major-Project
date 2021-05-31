@@ -58,9 +58,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Usability
 - First the functions are initialised so that the messages are being sent across from the modules
 - message is being typed across the board -> output message should be received
-- measurements should be displayed on a terminal
-- 
-
+- measurements are also displayed onto a terminal
 
 #### Functionality
 
