@@ -290,10 +290,6 @@ void delay(uint16_t msec)
 }
 
 
-
-
-
-
 void Init_TC7 (void) {
   
     _asm SEI;
@@ -303,6 +299,9 @@ void Init_TC7 (void) {
     TSCR2 = 0x87;   // prescaler 128
     TIOS=TIOS | TIOS_IOS7_MASK;
     TCTL1=0x40;
+    //TCTL1_OL7 = 1;
+    //TCTL1_OM7 = 0;
+    
     TIE=TIE | 0x80;
 
      _asm CLI;

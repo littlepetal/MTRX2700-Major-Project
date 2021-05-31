@@ -2,19 +2,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <assert.h>
-<<<<<<< HEAD
-=======
 
->>>>>>> f12dd3fe75465974e975bcdca881969a975ed283
 #include "derivative.h"      /* derivative-specific definitions */
 #include "timers.h"
 #include "lidar.h"
 #include "simple_serial.h"
 #include "iic.h"
 #include "voice.h"
-#include "accelerometer.h"
-#include "pll.h"
-#include "l3g4200d.h"
 
 #include "pll.h"
 #include "l3g4200d.h"
@@ -26,29 +20,19 @@ void main(void) {
 
 
   volatile unsigned int distance = 0;
-<<<<<<< HEAD
-  volatile unsigned int fall = 0;
   
   unsigned char buffer[12];       // buffer for serial output
-  fall_output current_output;
-  fall_output prev_output;
-  init_fall_output(prev_output);
-
-=======
-  
-  unsigned char buffer[12];       // buffer for serial output
->>>>>>> f12dd3fe75465974e975bcdca881969a975ed283
   
   
   // lidar and acc module WORKING
-  /*
+  
   fall_output current_output;
   fall_output prev_output;
   init_fall_output(prev_output);
     
   Init_Lidar();
   Init_TC7();
-  */
+  
   
   // speaker module WORKING
   /*
@@ -56,13 +40,13 @@ void main(void) {
   */
   
   // lidar module WORKING
-  
-  Init_Lidar();
-  
-
   /*
+  Init_Lidar();
+  */
+
+
   // speaker and acc modules
-  
+  /*
   fall_output current_output;
   fall_output prev_output;
   init_fall_output(prev_output);
@@ -81,28 +65,17 @@ void main(void) {
   
   // initialise serial interface  
   SCI1_Init(BAUD_9600); 
-<<<<<<< HEAD
-  
-  // initialise the sensor suite
-  Init_TC7();
-
-
-	EnableInterrupts;
-	COPCTL = 7;
-
-=======
     
   //COPCTL = 7;
 
 	EnableInterrupts;
 	
->>>>>>> f12dd3fe75465974e975bcdca881969a975ed283
 
   for(;;) {
     
     
       // lidar and acc module WORKING
-      /*
+      
       // calculate the distance from the lidar to the closest obstacle
       distance = get_metres();
     
@@ -113,7 +86,7 @@ void main(void) {
       // serial output distance in metres, fall boolean
       sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
       SCI1_OutString(buffer); 
-      */
+      
     
     
     
@@ -126,27 +99,18 @@ void main(void) {
     
     
       // lidar module WORKING
-      
+      /*
       distance = get_metres();
     
       // serial output distance in metres
       sprintf(buffer,"distance: %u\r\n",distance);
       SCI1_OutString(buffer);
-      
+      */
        
-<<<<<<< HEAD
-    current_output = fall_detect(prev_output);
-    prev_output = current_output;
-    fall =current_output.emergency;
-      
-    //InitSpeaker();  
-    //voice(distance, 0);
-=======
->>>>>>> f12dd3fe75465974e975bcdca881969a975ed283
     
     // speaker and acc modules
-    
-   /* current_output = fall_detect(prev_output);
+    /*
+    current_output = fall_detect(prev_output);
     prev_output = current_output;  
     
     distance = 10;
@@ -154,7 +118,7 @@ void main(void) {
     
     sprintf(buffer,"fall: %d\r\n",current_output.emergency);
     SCI1_OutString(buffer);
-     */
+    */
     
     
     
