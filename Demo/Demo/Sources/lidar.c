@@ -33,6 +33,24 @@ void Init_Lidar (void){
 
 }
 
+void enable_lidar_interrupts(void){
+  Init_TOF();
+  Init_TC1();
+  DDRT = 0x00;
+}
+void disable_lidar_interrupts(void){
+  TIE = 0x00;
+}
+
+/*
+void enable_speaker_interrupts(void){
+  //Init_TC1();
+}
+void disable_speaker_interrupts(void){
+  TIE = 0x00;
+}
+*/
+
 
 
 
@@ -76,7 +94,8 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
     
     volatile unsigned int timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
     
-    volatile unsigned int distance = timeCount*(16.0/24000.0);
+    //volatile unsigned int distance = timeCount*(16.0/24000.0);
+    volatile unsigned int distance = timeCount*(128.0/24000.0);
     
     reset_overflow_count();
         
@@ -89,12 +108,12 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
 // sets up the timers for channel 1 to use the interrupt
 void Init_TC1 (void) {
   TSCR1=0x80;
-  TSCR2=0x84;
+  //TSCR2=0x84;
+  TSCR2=0x87;
   
   TIOS =0x00;     // set channel 1 to input capture
   
   // capture on both falling and rising edge
-  TCTL3 = 0x00;
   TCTL4_EDG1A = 1;
   TCTL4_EDG1B = 1; 
   
@@ -114,11 +133,7 @@ __interrupt void TC1_ISR(void) {
   if(PTIT_PTIT1 == 0){
     endCount = TC1;
     metres = get_distance(startCount, endCount);
-  }
-
-  //need to toggle rising/falling
-  //TCTL4 = TCTL4 ^ TCTL4_EDG1A_MASK;
-  //TCTL4 = TCTL4 ^ TCTL4_EDG1B_MASK;  
+  } 
     
   TFLG1_C1F = 1;
   edgesCount += 1;  

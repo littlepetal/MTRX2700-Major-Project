@@ -56,9 +56,7 @@ void main(void) {
   
   #endif
   
-  
-  
-    
+   
 	EnableInterrupts;
   COPCTL = 7;
 

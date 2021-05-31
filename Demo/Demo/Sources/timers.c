@@ -26,7 +26,8 @@ volatile unsigned int get_overflow_count(void){
 // sets up the timers for timer overflow to use the interrupt
 void Init_TOF (void) {  
     TSCR1=0x80;
-    TSCR2=0x84;   
+    TSCR2=0x87;
+    //TSCR2=0x84;   
 }
 
 // added to the ISR vector table

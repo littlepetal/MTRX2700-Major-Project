@@ -9,22 +9,16 @@
 #include "pll.h"
 #include "simple_serial.h"
 #include "l3g4200d.h"
+#include "accelerometer.h"
 
-void MSDelay(unsigned int);
 
+ void main(void) {
 
-void main(void) {
-
-  AccelRaw read_accel;
-  AccelScaled scaled_accel;
-  volatile int count = 0;   
-  volatile int alert = 0;
-  volatile float prev_z =0;
-
-   
-    
-  int error_code = NO_ERROR;
+  
   unsigned char buffer[128];
+  fall_output current_output;
+  fall_output prev_output;
+  init_fall_output(prev_output);
   
   //assert(error_code != NO_ERROR);
 
@@ -35,84 +29,34 @@ void main(void) {
 
   #endif
 
-
-  // initialise the simple serial
+   // initialise the simple serial
   SCI1_Init(BAUD_9600);
   
-  #ifndef SIMULATION_TESTING
-  
+ 
   // initialise the sensor suite
-  error_code = iicSensorInit();
-  
-  // write the result of the sensor initialisation to the serial
-  if (error_code == NO_ERROR) {
-    sprintf(buffer, "NO_ERROR");
-    SCI1_OutString(buffer);
-  } else {
-    sprintf(buffer, "ERROR %d");
-    SCI1_OutString(buffer);    
-  }
-  
-  #else
-  
   Init_TC7();
   
-  #endif
-  
-  
-  
-    
+   
 	EnableInterrupts;
   COPCTL = 7;
 
   for(;;) {
-     
   
-    // read the raw values
- 
-    getRawDataAccel(&read_accel);
-    
-    // convert the acceleration to a scaled value
-    convertUnits(&read_accel, &scaled_accel);    
-    
-    
-    if(abs(scaled_accel.z)>=0.80){
-       if(abs(scaled_accel.z)-prev_z>=0.85){
-       alert = 1;
-       }
-       count++;
-    }
-    
-    
-    
-    prev_z = abs(scaled_accel.z);
-    
-          
-    
+     
+     current_output = fall_detect(prev_output);
+     prev_output = current_output;
+     
+     
+     
+
     // format the string of the sensor data to go the the serial
-    sprintf(buffer, "%.2f, %.2f, %.2f\r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z);
-    
-    
-    
+    sprintf(buffer, "%d\r\n",current_output.alert);
+
     // output the data to serial
     SCI1_OutString(buffer);
-    
-    if(alert==1&&count>=5){
-      sprintf(buffer, "EMERGENCY!");
-      SCI1_OutString(buffer);
-    
-    }
-    
-    MSDelay(100);
+ 
     _FEED_COP(); /* feeds the dog */
   }/* loop forever */
   
   /* please make sure that you never leave main */
 }
-
-void MSDelay(unsigned int itime)
-{
-   unsigned int i; unsigned int j;
-   for(i=0;i<itime;i++)
-     for(j=0;j<4000;j++);
-}  
