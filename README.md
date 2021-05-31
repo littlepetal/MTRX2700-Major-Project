@@ -49,9 +49,14 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Dependencies
 - The serialisation module would take information from one module and would output information into a terminal where it would be displayed
 - The serialisation module would work in conjunction with lidar, accelerometer and gyro as it would be displaying relevant measurements into the terminal
-- The serialisation module would work in conjunction with the speaker to produce the right sound effect. 
+- The serialisation module would work in conjunction with the speaker to produce the right sound effect 
 
 #### Usability
+- First the functions are initialised so that the messages are being sent across from the modules
+- message is being typed across the board -> output message should be received
+- measurements should be displayed on a terminal
+- 
+
 
 #### Functionality
 
