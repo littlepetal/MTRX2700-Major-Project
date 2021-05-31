@@ -90,7 +90,7 @@ volatile unsigned int get_edges_count(void){
 volatile unsigned int get_distance(volatile unsigned int startTimerCount, volatile unsigned int endTimerCount){
     volatile unsigned int overflows = get_overflow_count();    
     volatile unsigned int maxTimerCount = 65536;
-    //volatile float prescaler = 2.0;
+    //volatile float prescaler = 128.0;
     
     volatile unsigned int timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
     
@@ -111,7 +111,8 @@ void Init_TC1 (void) {
   //TSCR2=0x84;
   TSCR2=0x87;
   
-  TIOS =0x00;     // set channel 1 to input capture
+  //TIOS =0x00;     // set channel 1 to input capture
+  TIOS_IOS1 = 0;
   
   // capture on both falling and rising edge
   TCTL4_EDG1A = 1;

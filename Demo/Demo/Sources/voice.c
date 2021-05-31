@@ -3,6 +3,7 @@
 #include "derivative.h"      /* derivative-specific definitions */
 #include "oc5_isr.h"
 #include "delay.h"
+#include "simple_serial.h"
 
 
 volatile int dlycnt; // Delay count for 0C5
@@ -72,14 +73,21 @@ struct Speaker VoiceFall =
 struct Speaker Voice;
 
 void InitSpeaker(void){
-  TCTL1 = 0x04; // sets 0C5 to toggle. When event occurs, will toggle PT5
-  TIOS  = 0x20; // Selecting channel 5 as output compare
+  //TCTL1 = 0x04; // sets 0C5 to toggle. When event occurs, will toggle PT5
+  TCTL1_OM5 = 1;
+  
+  //TIOS  = 0x20; // Selecting channel 5 as output compare
+  TIOS_IOS5 = 1;
   
   TSCR1 = 0x90; // Enables timer. 0x90 would mean flag doesn't need to be reset
   TSCR2 = 0x07; // Sets prescaler division to 128. 187500Hz. T = 5.33us
-  TIE   = 0x20; // Sets interrupt caused by oc5
   
-  DDRT  = 0x20; // Sets PT5 to be output to speaker
+  
+  //TIE   = 0x20; // Sets interrupt caused by oc5
+  TIE_C5I = 1;
+  
+  //DDRT  = 0x20; // Sets PT5 to be output to speaker
+  DDRT_DDRT5 = 1;
   
   dlycnt = HiFreq; // set delay count for a high pitch
 }
@@ -89,6 +97,7 @@ void voice(int voiceNumber,int fallDown) {
   /* put your own code here */
   
   int j,toSerial;
+  unsigned char bufferVoice[12];
  
   
   
@@ -171,6 +180,10 @@ void voice(int voiceNumber,int fallDown) {
 
   // After tune is finished disable interrupt and loop forever //
   TIOS &= 0xBF; // Disable 0C5;
+  
+  sprintf(bufferVoice,"%u\r\n",toSerial);
+  SCI1_OutString(bufferVoice);
+  
   return;
 
 /*

@@ -299,7 +299,8 @@ void Init_TC7 (void) {
     _asm SEI;
 
     TSCR1=0x80;
-    TSCR2=0x00;   // prescaler 1, before 32 = 0x04
+    //TSCR2=0x00;   // prescaler 1, before 32 = 0x04
+    TSCR2 = 0x87;   // prescaler 128
     TIOS=TIOS | TIOS_IOS7_MASK;
     TCTL1=0x40;
     TIE=TIE | 0x80;
