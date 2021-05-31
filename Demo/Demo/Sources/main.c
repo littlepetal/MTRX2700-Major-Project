@@ -56,11 +56,11 @@ void main(void) {
   */
   
   // lidar module WORKING
-  /*
+  
   Init_Lidar();
-  */
+  
 
-
+  /*
   // speaker and acc modules
   
   fall_output current_output;
@@ -69,7 +69,7 @@ void main(void) {
   Init_TC7();
   
   InitSpeaker();
-  
+  */
   
   
   // speaker and lidar module MOSTLY WORKING
@@ -126,13 +126,13 @@ void main(void) {
     
     
       // lidar module WORKING
-      /*
+      
       distance = get_metres();
     
       // serial output distance in metres
       sprintf(buffer,"distance: %u\r\n",distance);
       SCI1_OutString(buffer);
-      */
+      
        
 <<<<<<< HEAD
     current_output = fall_detect(prev_output);
@@ -146,7 +146,7 @@ void main(void) {
     
     // speaker and acc modules
     
-    current_output = fall_detect(prev_output);
+   /* current_output = fall_detect(prev_output);
     prev_output = current_output;  
     
     distance = 10;
@@ -154,7 +154,7 @@ void main(void) {
     
     sprintf(buffer,"fall: %d\r\n",current_output.emergency);
     SCI1_OutString(buffer);
-    
+     */
     
     
     
