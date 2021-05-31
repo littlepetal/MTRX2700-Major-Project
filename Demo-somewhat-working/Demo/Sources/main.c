@@ -57,10 +57,11 @@ void main(void) {
   
   
   // speaker and lidar module MOSTLY WORKING
-   /*
+    /*
     Init_Lidar();
+    //Init_TC7();
     InitSpeaker();
-   */
+    */
    
    
    
@@ -130,7 +131,12 @@ void main(void) {
     prev_output = current_output;  
     
     distance = 10;
+    
+    TSCR1_TFFCA = 1;    // enable timer fast flag clear all bits
+    
     voice(distance, current_output.emergency);
+    
+    TSCR1_TFFCA = 0;    // disable timer fast flag clear all bits
     
     sprintf(buffer,"fall: %d\r\n",current_output.emergency);
     SCI1_OutString(buffer);
@@ -139,18 +145,22 @@ void main(void) {
     
     
     // speaker and lidar module MOSTLY WORKING    
-    /*  
+      /*
       // calculate the distance from the lidar to the closest obstacle
       distance = get_metres();
       //distance = 0;
       
+      TSCR1_TFFCA = 1;    // enable timer fast flag clear all bits
+      
       // play warning sounds   
       voice(distance, 0);
+      
+      TSCR1_TFFCA = 0;    // disable timer fast flag clear all bits
       
       // serial output distance in metres
       sprintf(buffer,"distance: %u\r\n",distance);
       SCI1_OutString(buffer);
-    */  
+      */
     
     
     
