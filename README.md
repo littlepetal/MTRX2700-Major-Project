@@ -38,11 +38,15 @@ Group 2 Tuesday 2pm-5pm Lab2
 ## Speaker Module
 
 #### Dependencies
+- This module is used in conjunction with the lidar module to activate the corresponding audio according to the change of the distance parameter.
+- This module is used in conjunction with the acceleration module and the gyroscope module, and it will continue to warn the user when it is judged that the user is down.
 
 #### Usability
-
+- Users can customize the audio in the module.
+- You can adapt the use of other modules by changing the conditions in the logic judgment.
 #### Functionality
-
+- The OC5 module uses an integer parameter to indicate the number of clock cycles that the program should delay, and updates the pin TC5 to trigger the interrupt again in the program. This interrupt will also cause the PT5 pin to turn on and off, which will cause the speaker to vibrate and generate sound waves.
+- Include 10ms delay module
 
 ## Serialisation Module
 
@@ -54,9 +58,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Usability
 - First the functions are initialised so that the messages are being sent across from the modules
 - message is being typed across the board -> output message should be received
-- measurements should be displayed on a terminal
-- 
-
+- measurements are also displayed onto a terminal
 
 #### Functionality
 

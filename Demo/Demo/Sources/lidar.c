@@ -22,7 +22,8 @@ void Init_Lidar (void){
   Init_TC1();
   
   // set port T as input
-  DDRT = 0x00;
+  //DDRT = 0x00;
+  DDRT_DDRT1 = 0;
   
   // initialise variables
   reset_overflow_count();
@@ -36,10 +37,11 @@ void Init_Lidar (void){
 void enable_lidar_interrupts(void){
   Init_TOF();
   Init_TC1();
-  DDRT = 0x00;
+  //DDRT = 0x00;
+  DDRT_DDRT1 = 0;
 }
 void disable_lidar_interrupts(void){
-  TIE = 0x00;
+  TIE_C1I = 0;
 }
 
 /*
@@ -90,7 +92,7 @@ volatile unsigned int get_edges_count(void){
 volatile unsigned int get_distance(volatile unsigned int startTimerCount, volatile unsigned int endTimerCount){
     volatile unsigned int overflows = get_overflow_count();    
     volatile unsigned int maxTimerCount = 65536;
-    //volatile float prescaler = 2.0;
+    //volatile float prescaler = 128.0;
     
     volatile unsigned int timeCount = (endTimerCount - startTimerCount + (overflows*maxTimerCount));
     
@@ -108,16 +110,16 @@ volatile unsigned int get_distance(volatile unsigned int startTimerCount, volati
 // sets up the timers for channel 1 to use the interrupt
 void Init_TC1 (void) {
   TSCR1=0x80;
-  //TSCR2=0x84;
-  TSCR2=0x87;
+  TSCR2=0x87;       // set prescaler to 128 and enable TOF interrupt
   
-  TIOS =0x00;     // set channel 1 to input capture
+  TIOS_IOS1 = 0;    // set channel 1 to input capture
   
   // capture on both falling and rising edge
   TCTL4_EDG1A = 1;
   TCTL4_EDG1B = 1; 
   
-  TIE=0x02;       // enable channel 1 interrupt
+  //TIE=0x02;       // enable channel 1 interrupt     ////////////////////
+  TIE_C1I = 1;
 }
 
 //  added to the ISR vector table
