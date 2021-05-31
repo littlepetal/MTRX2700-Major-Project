@@ -49,7 +49,7 @@ _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1100     33
-  _Copy    *toCopyDownBeg 0xCA86
+  _Copy    *toCopyDownBeg 0xCA85
 } _startupData;
 
 *********************************************************************************************
@@ -60,8 +60,8 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC00B     0xC014   ROM_C000
 .rodata                          308     R     0xC015     0xC148   ROM_C000
 .rodata1                          25     R     0xC149     0xC161   ROM_C000
-NON_BANKED                      2340     R     0xC162     0xCA85   ROM_C000
-.copy                             13     R     0xCA86     0xCA92   ROM_C000
+NON_BANKED                      2339     R     0xC162     0xCA84   ROM_C000
+.copy                             13     R     0xCA85     0xCA91   ROM_C000
 .text                           4916     R   0x308000   0x309333   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                              8   R/W     0x1100     0x1107   RAM
@@ -412,7 +412,7 @@ NON_BANKED                      2340     R     0xC162     0xCA85   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):        1E47 (dec:     7751)
+READ_ONLY (R):        1E46 (dec:     7750)
 READ_WRITE (R/W):      121 (dec:      289)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -910,7 +910,7 @@ MODULE:                 -- timers.c.o --
      reset_overflow_count                    308CA5       6       6       4   .text       
      get_overflow_count                      308CAB       4       4       2   .text       
      Init_TOF                                308CAF       8       8       2   .text       
-     TOF_ISR                                   CA22       C      12       1   NON_BANKED  
+     TOF_ISR                                   CA22       B      11       1   NON_BANKED  
 - VARIABLES:
      numberOfOverflows                         110F       2       2       4   .bss        
 MODULE:                 -- simple_serial.c.o --
@@ -921,15 +921,15 @@ MODULE:                 -- simple_serial.c.o --
 - VARIABLES:
 MODULE:                 -- lidar.c.o --
 - PROCEDURES:
-     Init_Lidar                              308D2A      20      32       2   .text       
-     reset_metres                            308D4A       6       6       2   .text       
-     reset_edges_count                       308D50       6       6       2   .text       
-     reset_start_count                       308D56       6       6       2   .text       
-     reset_end_count                         308D5C       6       6       2   .text       
-     get_metres                              308D62       4       4       2   .text       
-     get_distance                            308D66      5C      92       2   .text       
-     Init_TC1                                308DC2      15      21       2   .text       
-     TC1_ISR                                   CA2E      2F      47       1   NON_BANKED  
+     Init_Lidar                              308D2A      21      33       2   .text       
+     reset_metres                            308D4B       6       6       2   .text       
+     reset_edges_count                       308D51       6       6       2   .text       
+     reset_start_count                       308D57       6       6       2   .text       
+     reset_end_count                         308D5D       6       6       2   .text       
+     get_metres                              308D63       4       4       2   .text       
+     get_distance                            308D67      5C      92       2   .text       
+     Init_TC1                                308DC3      14      20       2   .text       
+     TC1_ISR                                   CA2D      2F      47       1   NON_BANKED  
 - VARIABLES:
      metres                                    1111       2       2       3   .bss        
      edgesCount                                1113       2       2       3   .bss        
@@ -937,7 +937,7 @@ MODULE:                 -- lidar.c.o --
      endCount                                  1117       2       2       3   .bss        
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          CA5D       2       2      59   NON_BANKED  
+     UnimplementedISR                          CA5C       2       2      59   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- voice.c.o --
@@ -973,7 +973,7 @@ MODULE:                 -- iic.c.o --
      iicreceivelast                          309268      30      48       2   .text       
      setAlarm                                309298      12      18      12   .text       
      Init_TC7                                3092AA      15      21       4   .text       
-     TC7_ISR                                   CA5F      27      39       1   NON_BANKED  
+     TC7_ISR                                   CA5E      27      39       1   NON_BANKED  
 - VARIABLES:
      alarmSignaled                             1119       1       1      14   .bss        
      currentTime                               111A       2       2       4   .bss        
@@ -1014,7 +1014,7 @@ MODULE STATISTIC
   rtshc12.c.o (ansibf.lib)                     0    359      0
   VREGS.C.o (ansibf.lib)                       0     28      0
   oc5_isr.c.o                                  0      8      0
-  timers.c.o                                   2     30      0
+  timers.c.o                                   2     29      0
   simple_serial.c.o                            0    115      0
   lidar.c.o                                    8    220      0
   isr_vectors.c.o                              0      2    126
@@ -2172,10 +2172,10 @@ OBJECT LIST SORTED BY ADDRESS
      UL_PULK                                   CA0D       3       3       1   NON_BANKED  
      SL_PULK                                   CA10       A      10       2   NON_BANKED  
      OC5_ISR                                   CA1A       8       8       1   NON_BANKED  
-     TOF_ISR                                   CA22       C      12       1   NON_BANKED  
-     TC1_ISR                                   CA2E      2F      47       1   NON_BANKED  
-     UnimplementedISR                          CA5D       2       2      59   NON_BANKED  
-     TC7_ISR                                   CA5F      27      39       1   NON_BANKED  
+     TOF_ISR                                   CA22       B      11       1   NON_BANKED  
+     TC1_ISR                                   CA2D      2F      47       1   NON_BANKED  
+     UnimplementedISR                          CA5C       2       2      59   NON_BANKED  
+     TC7_ISR                                   CA5E      27      39       1   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
      main                                    308000      7E     126       2   .text       
      Init                                    30807E      29      41       2   .text       
@@ -2191,14 +2191,14 @@ OBJECT LIST SORTED BY ADDRESS
      SCI1_Init                               308CB7      5A      90       2   .text       
      SCI1_OutChar                            308D11       9       9       2   .text       
      SCI1_OutString                          308D1A      10      16       2   .text       
-     Init_Lidar                              308D2A      20      32       2   .text       
-     reset_metres                            308D4A       6       6       2   .text       
-     reset_edges_count                       308D50       6       6       2   .text       
-     reset_start_count                       308D56       6       6       2   .text       
-     reset_end_count                         308D5C       6       6       2   .text       
-     get_metres                              308D62       4       4       2   .text       
-     get_distance                            308D66      5C      92       2   .text       
-     Init_TC1                                308DC2      15      21       2   .text       
+     Init_Lidar                              308D2A      21      33       2   .text       
+     reset_metres                            308D4B       6       6       2   .text       
+     reset_edges_count                       308D51       6       6       2   .text       
+     reset_start_count                       308D57       6       6       2   .text       
+     reset_end_count                         308D5D       6       6       2   .text       
+     get_metres                              308D63       4       4       2   .text       
+     get_distance                            308D67      5C      92       2   .text       
+     Init_TC1                                308DC3      14      20       2   .text       
      convertUnits                            308DD7      5E      94       2   .text       
      fall_detect                             308E35      B0     176       2   .text       
      init_fall_output                        308EE5       1       1       2   .text       
@@ -2280,19 +2280,19 @@ voice.c.o:
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xCA86 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCA85 ---- SIZE       4 ---
 Filling bytes inserted
  00071100
-------- ROM-ADDRESS: 0xCA8A ---- RAM-ADDRESS: 0x1100 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCA89 ---- RAM-ADDRESS: 0x1100 ---- SIZE       4 ---
 Name of initialized Object : accelerometer_cfg
  2D083108
-------- ROM-ADDRESS: 0xCA8E ---- RAM-ADDRESS: 0x1104 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xCA8D ---- RAM-ADDRESS: 0x1104 ---- SIZE       2 ---
 Name of initialized Object : gyro_cfg
  200F
-------- ROM-ADDRESS: 0xCA90 ---- RAM-ADDRESS: 0x1106 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xCA8F ---- RAM-ADDRESS: 0x1106 ---- SIZE       1 ---
 Name of initialized Object : mag_cfg
  02
-------- ROM-ADDRESS: 0xCA91 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xCA90 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -2766,6 +2766,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 7
-Total size of all blocks to be downloaded: 7751
+Number of blocks to be downloaded: 8
+Total size of all blocks to be downloaded: 7750
 

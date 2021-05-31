@@ -24,17 +24,19 @@ void main(void) {
   unsigned char buffer[12];       // buffer for serial output
   
   
-  /*
+  
   fall_output current_output;
   fall_output prev_output;
   init_fall_output(prev_output);
-  */
+    
+  Init_Lidar();
+  Init_TC7();
   
   
-  // initialises the lidar
-  //Init_Lidar();
-  InitSpeaker();
-  //Init_TC7();
+  
+  
+  //InitSpeaker();
+ 
   
   // initialise serial interface  
   SCI1_Init(BAUD_9600); 
@@ -45,35 +47,36 @@ void main(void) {
 	
 
   for(;;) {
-  
-    // calculate the distance from the lidar to the closest obstacle
-    //enable_lidar_interrupts();
-    //Init_Lidar();
-    
-    //distance = get_metres();                  ////////////////////////
-    
-    //disable_lidar_interrupts();
-    distance = 0;
     
     
+    
+      // calculate the distance from the lidar to the closest obstacle
+      distance = get_metres();
+    
+      // check whether subject has fallen
+      current_output = fall_detect(prev_output);
+      prev_output = current_output;
+    
+      // serial output distance in metres, fall boolean
+      sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
+      SCI1_OutString(buffer); 
+    
+    
+    
+    
+        
     /*
-    current_output = fall_detect(prev_output);  ////////////////////////
-    prev_output = current_output; 
-    */
-    
-         
-    voice(distance, 0);
-    
-    
-    //enable_lidar_interrupts();
-    
-    
-           
-    // serial output distance in metres, fall boolean
-    /*
-    sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
-    SCI1_OutString(buffer);
-    */
+      // calculate the distance from the lidar to the closest obstacle
+      distance = get_metres();
+      distance = 0;
+      
+      // play warning sounds   
+      voice(distance, 0);
+      
+      // serial output distance in metres
+      sprintf(buffer,"distance: %u\r\n",distance);
+      SCI1_OutString(buffer);
+   */
 
     
     _FEED_COP(); /* feeds the dog */

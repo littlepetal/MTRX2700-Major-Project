@@ -26,8 +26,7 @@ volatile unsigned int get_overflow_count(void){
 // sets up the timers for timer overflow to use the interrupt
 void Init_TOF (void) {  
     TSCR1=0x80;
-    TSCR2=0x87;
-    //TSCR2=0x84;   
+    TSCR2=0x87;        // set prescaler to 128 and enable TOF interrupt
 }
 
 // added to the ISR vector table
@@ -36,5 +35,5 @@ void Init_TOF (void) {
 // interrupt is triggered when there is a timer count overflow
 __interrupt void TOF_ISR(void) {     
     numberOfOverflows += 1;        // increment overflow count    
-    TFLG2 = 0x80;
+    TFLG2_TOF = 1;
 } 
