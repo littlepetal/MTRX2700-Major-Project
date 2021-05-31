@@ -50,7 +50,7 @@
      
 
     // format the string of the sensor data to go the the serial
-    sprintf(buffer, "%d\r\n",current_output.alert);
+    sprintf(buffer, "%d\r\n",current_output.emergency);
 
     // output the data to serial
     SCI1_OutString(buffer);

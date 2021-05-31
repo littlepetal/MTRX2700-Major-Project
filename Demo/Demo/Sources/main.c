@@ -1,12 +1,16 @@
 #include <hidef.h>      /* common defines and macros */
 #include <stdlib.h>
 #include <stdio.h>
+#include <assert.h>
 #include "derivative.h"      /* derivative-specific definitions */
 #include "timers.h"
 #include "lidar.h"
 #include "simple_serial.h"
 #include "iic.h"
 #include "voice.h"
+#include "accelerometer.h"
+#include "pll.h"
+#include "l3g4200d.h"
 
 
 void main(void) {
@@ -15,9 +19,12 @@ void main(void) {
 
 
   volatile unsigned int distance = 0;
-  //volatile unsigned int fall = 0;
+  volatile unsigned int fall = 0;
   
   unsigned char buffer[12];       // buffer for serial output
+  fall_output current_output;
+  fall_output prev_output;
+  init_fall_output(prev_output);
 
   
   
@@ -27,9 +34,13 @@ void main(void) {
   
   // initialise serial interface  
   SCI1_Init(BAUD_9600); 
+  
+  // initialise the sensor suite
+  Init_TC7();
 
 
 	EnableInterrupts;
+	COPCTL = 7;
 
 
   for(;;) {
@@ -43,7 +54,9 @@ void main(void) {
     //distance = 23;
    
        
-    //fall = fallDetect();
+    current_output = fall_detect(prev_output);
+    prev_output = current_output;
+    fall =current_output.emergency;
       
     //InitSpeaker();  
     //voice(distance, 0);
