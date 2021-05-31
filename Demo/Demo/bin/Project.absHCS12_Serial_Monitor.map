@@ -49,7 +49,7 @@ _startupData is allocated at 0xC00B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1100     33
-  _Copy    *toCopyDownBeg 0xCA85
+  _Copy    *toCopyDownBeg 0xCA88
 } _startupData;
 
 *********************************************************************************************
@@ -60,9 +60,9 @@ Section Name                    Size  Type     From       To       Segment
 .startData                        10     R     0xC00B     0xC014   ROM_C000
 .rodata                          308     R     0xC015     0xC148   ROM_C000
 .rodata1                          25     R     0xC149     0xC161   ROM_C000
-NON_BANKED                      2339     R     0xC162     0xCA84   ROM_C000
-.copy                             13     R     0xCA85     0xCA91   ROM_C000
-.text                           4916     R   0x308000   0x309333   PAGE_30
+NON_BANKED                      2342     R     0xC162     0xCA87   ROM_C000
+.copy                             13     R     0xCA88     0xCA94   ROM_C000
+.text                           4919     R   0x308000   0x309336   PAGE_30
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                              8   R/W     0x1100     0x1107   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -412,7 +412,7 @@ NON_BANKED                      2339     R     0xC162     0xCA84   ROM_C000
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):        1E46 (dec:     7750)
+READ_ONLY (R):        1E4C (dec:     7756)
 READ_WRITE (R/W):      121 (dec:      289)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -472,13 +472,13 @@ MODULE:                 -- mc9s12dg256.c.o --
      _OC7D                                       43       1       1       0   .abs_section_43
      _TSCR1                                      46       1       1       3   .abs_section_46
      _TTOV                                       47       1       1       0   .abs_section_47
-     _TCTL1                                      48       1       1       1   .abs_section_48
+     _TCTL1                                      48       1       1       2   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
      _TCTL3                                      4A       1       1       0   .abs_section_4a
      _TCTL4                                      4B       1       1       2   .abs_section_4b
      _TIE                                        4C       1       1       2   .abs_section_4c
      _TSCR2                                      4D       1       1       3   .abs_section_4d
-     _TFLG1                                      4E       1       1       2   .abs_section_4e
+     _TFLG1                                      4E       1       1       3   .abs_section_4e
      _TFLG2                                      4F       1       1       1   .abs_section_4f
      _PACTL                                      60       1       1       0   .abs_section_60
      _PAFLG                                      61       1       1       0   .abs_section_61
@@ -903,14 +903,14 @@ MODULE:                 -- VREGS.C.o (ansibf.lib) --
 - VARIABLES:
 MODULE:                 -- oc5_isr.c.o --
 - PROCEDURES:
-     OC5_ISR                                   CA1A       8       8       1   NON_BANKED  
+     OC5_ISR                                   CA1A       B      11       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- timers.c.o --
 - PROCEDURES:
      reset_overflow_count                    308CA5       6       6       4   .text       
      get_overflow_count                      308CAB       4       4       2   .text       
      Init_TOF                                308CAF       8       8       2   .text       
-     TOF_ISR                                   CA22       B      11       1   NON_BANKED  
+     TOF_ISR                                   CA25       B      11       1   NON_BANKED  
 - VARIABLES:
      numberOfOverflows                         110F       2       2       4   .bss        
 MODULE:                 -- simple_serial.c.o --
@@ -929,7 +929,7 @@ MODULE:                 -- lidar.c.o --
      get_metres                              308D63       4       4       2   .text       
      get_distance                            308D67      5C      92       2   .text       
      Init_TC1                                308DC3      14      20       2   .text       
-     TC1_ISR                                   CA2D      2F      47       1   NON_BANKED  
+     TC1_ISR                                   CA30      2F      47       1   NON_BANKED  
 - VARIABLES:
      metres                                    1111       2       2       3   .bss        
      edgesCount                                1113       2       2       3   .bss        
@@ -937,7 +937,7 @@ MODULE:                 -- lidar.c.o --
      endCount                                  1117       2       2       3   .bss        
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          CA5C       2       2      59   NON_BANKED  
+     UnimplementedISR                          CA5F       2       2      59   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- voice.c.o --
@@ -972,8 +972,8 @@ MODULE:                 -- iic.c.o --
      iicreceivem1                            30923E      2A      42       2   .text       
      iicreceivelast                          309268      30      48       2   .text       
      setAlarm                                309298      12      18      12   .text       
-     Init_TC7                                3092AA      15      21       4   .text       
-     TC7_ISR                                   CA5E      27      39       1   NON_BANKED  
+     Init_TC7                                3092AA      18      24       4   .text       
+     TC7_ISR                                   CA61      27      39       1   NON_BANKED  
 - VARIABLES:
      alarmSignaled                             1119       1       1      14   .bss        
      currentTime                               111A       2       2       4   .bss        
@@ -981,11 +981,11 @@ MODULE:                 -- iic.c.o --
      alarmSet                                  111E       1       1       3   .bss        
 MODULE:                 -- l3g4200d.c.o --
 - PROCEDURES:
-     getRawDataAccel                         3092BF      1B      27       2   .text       
-     iicSensorInit                           3092DA      2A      42       4   .text       
-     accel_init                              309304      10      16       2   .text       
-     gyro_init                               309314      10      16       2   .text       
-     magnet_init                             309324      10      16       2   .text       
+     getRawDataAccel                         3092C2      1B      27       2   .text       
+     iicSensorInit                           3092DD      2A      42       4   .text       
+     accel_init                              309307      10      16       2   .text       
+     gyro_init                               309317      10      16       2   .text       
+     magnet_init                             309327      10      16       2   .text       
 - VARIABLES:
      accelerometer_cfg                         1100       4       4       1   .data       
      gyro_cfg                                  1104       2       2       1   .data       
@@ -1013,7 +1013,7 @@ MODULE STATISTIC
   FREGS.C.o (ansibf.lib)                       0    176      0
   rtshc12.c.o (ansibf.lib)                     0    359      0
   VREGS.C.o (ansibf.lib)                       0     28      0
-  oc5_isr.c.o                                  0      8      0
+  oc5_isr.c.o                                  0     11      0
   timers.c.o                                   2     29      0
   simple_serial.c.o                            0    115      0
   lidar.c.o                                    8    220      0
@@ -1021,7 +1021,7 @@ MODULE STATISTIC
   voice.c.o                                    2      0      0
   accelerometer.c.o                            0     94      0
   fall_detection.c.o                           0    648      0
-  iic.c.o                                      6    553      0
+  iic.c.o                                      6    556      0
   l3g4200d.c.o                                 8    117      0
   other                                      256     12     13
 
@@ -1795,13 +1795,13 @@ OBJECT LIST SORTED BY ADDRESS
      _TCNT                                       44       2       2       1   .abs_section_44
      _TSCR1                                      46       1       1       3   .abs_section_46
      _TTOV                                       47       1       1       0   .abs_section_47
-     _TCTL1                                      48       1       1       1   .abs_section_48
+     _TCTL1                                      48       1       1       2   .abs_section_48
      _TCTL2                                      49       1       1       0   .abs_section_49
      _TCTL3                                      4A       1       1       0   .abs_section_4a
      _TCTL4                                      4B       1       1       2   .abs_section_4b
      _TIE                                        4C       1       1       2   .abs_section_4c
      _TSCR2                                      4D       1       1       3   .abs_section_4d
-     _TFLG1                                      4E       1       1       2   .abs_section_4e
+     _TFLG1                                      4E       1       1       3   .abs_section_4e
      _TFLG2                                      4F       1       1       1   .abs_section_4f
      _TC0                                        50       2       2       0   .abs_section_50
      _TC1                                        52       2       2       2   .abs_section_52
@@ -2171,11 +2171,11 @@ OBJECT LIST SORTED BY ADDRESS
      L_PSHK                                    CA05       8       8       2   NON_BANKED  
      UL_PULK                                   CA0D       3       3       1   NON_BANKED  
      SL_PULK                                   CA10       A      10       2   NON_BANKED  
-     OC5_ISR                                   CA1A       8       8       1   NON_BANKED  
-     TOF_ISR                                   CA22       B      11       1   NON_BANKED  
-     TC1_ISR                                   CA2D      2F      47       1   NON_BANKED  
-     UnimplementedISR                          CA5C       2       2      59   NON_BANKED  
-     TC7_ISR                                   CA5E      27      39       1   NON_BANKED  
+     OC5_ISR                                   CA1A       B      11       1   NON_BANKED  
+     TOF_ISR                                   CA25       B      11       1   NON_BANKED  
+     TC1_ISR                                   CA30      2F      47       1   NON_BANKED  
+     UnimplementedISR                          CA5F       2       2      59   NON_BANKED  
+     TC7_ISR                                   CA61      27      39       1   NON_BANKED  
      _vect                                     FF80      7E     126       0   .abs_section_ff80
      main                                    308000      7E     126       2   .text       
      Init                                    30807E      29      41       2   .text       
@@ -2219,12 +2219,12 @@ OBJECT LIST SORTED BY ADDRESS
      iicreceivem1                            30923E      2A      42       2   .text       
      iicreceivelast                          309268      30      48       2   .text       
      setAlarm                                309298      12      18      12   .text       
-     Init_TC7                                3092AA      15      21       4   .text       
-     getRawDataAccel                         3092BF      1B      27       2   .text       
-     iicSensorInit                           3092DA      2A      42       4   .text       
-     accel_init                              309304      10      16       2   .text       
-     gyro_init                               309314      10      16       2   .text       
-     magnet_init                             309324      10      16       2   .text       
+     Init_TC7                                3092AA      18      24       4   .text       
+     getRawDataAccel                         3092C2      1B      27       2   .text       
+     iicSensorInit                           3092DD      2A      42       4   .text       
+     accel_init                              309307      10      16       2   .text       
+     gyro_init                               309317      10      16       2   .text       
+     magnet_init                             309327      10      16       2   .text       
 
 *********************************************************************************************
 UNUSED-OBJECTS SECTION
@@ -2280,19 +2280,19 @@ voice.c.o:
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xCA85 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCA88 ---- SIZE       4 ---
 Filling bytes inserted
  00071100
-------- ROM-ADDRESS: 0xCA89 ---- RAM-ADDRESS: 0x1100 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xCA8C ---- RAM-ADDRESS: 0x1100 ---- SIZE       4 ---
 Name of initialized Object : accelerometer_cfg
  2D083108
-------- ROM-ADDRESS: 0xCA8D ---- RAM-ADDRESS: 0x1104 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xCA90 ---- RAM-ADDRESS: 0x1104 ---- SIZE       2 ---
 Name of initialized Object : gyro_cfg
  200F
-------- ROM-ADDRESS: 0xCA8F ---- RAM-ADDRESS: 0x1106 ---- SIZE       1 ---
+------- ROM-ADDRESS: 0xCA92 ---- RAM-ADDRESS: 0x1106 ---- SIZE       1 ---
 Name of initialized Object : mag_cfg
  02
-------- ROM-ADDRESS: 0xCA90 ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xCA93 ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -2332,7 +2332,7 @@ _LMODU                    USES _lDivMod
 L_NEGK                    USES _NEG_P 
 L_PSHK                    USES L_NEGK 
 SL_PULK                   USES L_NEGK 
-OC5_ISR                   USES _TC5 dlycnt 
+OC5_ISR                   USES _TC5 dlycnt _TFLG1 
 TOF_ISR                   USES numberOfOverflows _TFLG2 
 TC1_ISR                   USES _PTIT _TC1 startCount endCount get_distance 
                                 metres _TFLG1 edgesCount 
@@ -2767,5 +2767,5 @@ STATISTIC SECTION
 ExeFile:
 --------
 Number of blocks to be downloaded: 8
-Total size of all blocks to be downloaded: 7750
+Total size of all blocks to be downloaded: 7756
 

@@ -10,5 +10,8 @@ __interrupt void OC5_ISR(void)  {
   
   TC5 += dlycnt;
   
+  TFLG1_C5F = 1;
+  //TFLG1_C5F = 0;
+  
   return; // return from interrupt
 }

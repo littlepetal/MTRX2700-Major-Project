@@ -24,18 +24,43 @@ void main(void) {
   unsigned char buffer[12];       // buffer for serial output
   
   
-  
+  // lidar and acc module WORKING
+  /*
   fall_output current_output;
   fall_output prev_output;
   init_fall_output(prev_output);
     
   Init_Lidar();
   Init_TC7();
+  */
+  
+  // speaker module WORKING
+  /*
+  InitSpeaker();
+  */
+  
+  // lidar module WORKING
+  /*
+  Init_Lidar();
+  */
+
+
+  // speaker and acc modules
+  
+  fall_output current_output;
+  fall_output prev_output;
+  init_fall_output(prev_output);
+  Init_TC7();
+  
+  InitSpeaker();
   
   
   
-  
-  //InitSpeaker();
+  // speaker and lidar module MOSTLY WORKING
+   /*
+    Init_Lidar();
+    InitSpeaker();
+   */
  
   
   // initialise serial interface  
@@ -49,7 +74,8 @@ void main(void) {
   for(;;) {
     
     
-    
+      // lidar and acc module WORKING
+      /*
       // calculate the distance from the lidar to the closest obstacle
       distance = get_metres();
     
@@ -60,15 +86,47 @@ void main(void) {
       // serial output distance in metres, fall boolean
       sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
       SCI1_OutString(buffer); 
+      */
     
     
     
     
-        
+    // speaker module WORKING
     /*
+    voice(4, 1);
+    */
+    
+    
+    
+      // lidar module WORKING
+      /*
+      distance = get_metres();
+    
+      // serial output distance in metres
+      sprintf(buffer,"distance: %u\r\n",distance);
+      SCI1_OutString(buffer);
+      */
+       
+    
+    // speaker and acc modules
+    
+    current_output = fall_detect(prev_output);
+    prev_output = current_output;  
+    
+    distance = 10;
+    voice(distance, current_output.emergency);
+    
+    sprintf(buffer,"fall: %d\r\n",current_output.emergency);
+    SCI1_OutString(buffer);
+    
+    
+    
+    
+    // speaker and lidar module    
+    /*  
       // calculate the distance from the lidar to the closest obstacle
       distance = get_metres();
-      distance = 0;
+      //distance = 0;
       
       // play warning sounds   
       voice(distance, 0);
@@ -76,7 +134,27 @@ void main(void) {
       // serial output distance in metres
       sprintf(buffer,"distance: %u\r\n",distance);
       SCI1_OutString(buffer);
-   */
+    */  
+    
+    
+    
+    // speaker and lidar and acc module    
+      /*
+      // calculate the distance from the lidar to the closest obstacle
+      distance = get_metres();
+      //distance = 0;
+      
+      // check whether subject has fallen
+      current_output = fall_detect(prev_output);
+      prev_output = current_output;
+      
+      // play warning sounds   
+      voice(distance, 0);
+      
+      // serial output distance in metres
+      sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
+      SCI1_OutString(buffer);
+      */
 
     
     _FEED_COP(); /* feeds the dog */
