@@ -49,6 +49,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Dependencies
 - This module is used in conjunction with the lidar module to activate the corresponding audio according to the change of the distance parameter.
 - This module is used in conjunction with the acceleration module, and is judging whether the user has fallen and continuously warns.
+- Used in conjunction with the interface module, it can send signals to other devices at the same time to achieve more functions, such as notifying family members when it falls on the ground.
 
 #### Usability
 - Users can customize the audio in the module.
