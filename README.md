@@ -13,8 +13,8 @@ Group 2 Tuesday 2pm-5pm Lab2
 - The lidar module can be used in conjunction with the serialisation module to continuously print the value of the currently measured distance in a terminal like PuTTY. 
 
 #### Usability
-- First, the user must use 'Init_lidar' so that the variables, interrupts and ports used by the lidar module are initialised and configured as intended, which is:
-  - 'PORT T' as input
+- First, the user must use `Init_lidar` so that the variables, interrupts and ports used by the lidar module are initialised and configured as intended, which is:
+  - `PORT T` as input
   - Enabled timer overflow interrupt
   - Disabled timer fast flag clear all bits
   - Timer prescaler value of 128
@@ -23,7 +23,7 @@ Group 2 Tuesday 2pm-5pm Lab2
   - Initialising variabled used in the lidar module as zero 
 
 #### Functionality
-- Once configured, the lidar module is only responsible for returning the distance to the closest obstacle from the lidar in metres as a volatile unsigned int. The function that returns this value is 'get_metres()'
+- Once configured, the lidar module is only responsible for returning the distance to the closest obstacle from the lidar in metres as a volatile unsigned int. The function that returns this value is `get_metres()`
 
 
 ## Accelerometre Module
