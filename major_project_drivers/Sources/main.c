@@ -66,8 +66,8 @@ void main(void) {
   
     // read the raw values
     getRawDataGyro(&read_gyro);
-    getRawDataAccel(&read_accel);
-    getRawDataMagnet(&read_magnet);
+    //getRawDataAccel(&read_accel);
+    //getRawDataMagnet(&read_magnet);
     
     #else
     
@@ -82,10 +82,11 @@ void main(void) {
     convertUnits(&read_accel, &scaled_accel);    
     
     // format the string of the sensor data to go the the serial
-    sprintf(buffer, "%.2f, %.2f, %.2f, %d, %d, %d, %d, %d, %d \r\n", scaled_accel.x, scaled_accel.y, scaled_accel.z, read_gyro.x, read_gyro.y, read_gyro.z, read_magnet.x, read_magnet.y, read_magnet.z);
+    sprintf(buffer, "%d, %d, %d \r\n",read_gyro.x, read_gyro.y, read_gyro.z);
     
     // output the data to serial
     SCI1_OutString(buffer);
+    
     
     _FEED_COP(); /* feeds the dog */
   } /* loop forever */

@@ -45,8 +45,7 @@ fall_output fall_detect(fall_output prev_output){
     
     
     //loading the previous values for next iteration    
-    current_output.prev_output.z = abs(scaled_accel.z);
-    current_output.prev_output.y = abs(scaled_accel.y);
+    current_output.prev_output = scaled_accel;
     
     
     //checking if the person has fallen down
@@ -90,9 +89,9 @@ int is_standing(AccelScaled accel_measurement){
 /*function to detect the fall of the object in z,y-direction*/
 int has_fallen(AccelScaled current_measurement,AccelScaled prev_measurement){
   int result = 0;
-  if(abs(current_measurement.z)-prev_measurement.z>=0.65||prev_measurement.z-abs(current_measurement.z)>=0.65){
+  if(abs(current_measurement.z)-abs(prev_measurement.z)>=0.65||abs(prev_measurement.z)-abs(current_measurement.z)>=0.65){
     result = 1;
-  } else if(abs(current_measurement.y)-prev_measurement.y>=0.65||prev_measurement.y-abs(current_measurement.y)>=0.65){
+  } else if(abs(current_measurement.y)-abs(prev_measurement.y)>=0.65||abs(prev_measurement.y)-abs(current_measurement.y)>=0.65){
     result = 1;
   } else{
     result = 0;

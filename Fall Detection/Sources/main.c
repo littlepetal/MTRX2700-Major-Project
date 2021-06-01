@@ -4,21 +4,24 @@
 
 // need this for string functions
 #include <stdio.h>
-#include <stdlib.h>
 
 #include "pll.h"
 #include "simple_serial.h"
 #include "l3g4200d.h"
-#include "accelerometer.h"
 
 
- void main(void) {
 
+void main(void) {
+
+  AccelRaw read_accel;
+  AccelScaled scaled_accel;
+
+  GyroRaw read_gyro;
   
+  MagRaw read_magnet;
+  
+  int error_code = NO_ERROR;
   unsigned char buffer[128];
-  fall_output current_output;
-  fall_output prev_output;
-  init_fall_output(prev_output);
   
   //assert(error_code != NO_ERROR);
 
@@ -29,12 +32,29 @@
 
   #endif
 
-   // initialise the simple serial
+
+  // initialise the simple serial
   SCI1_Init(BAUD_9600);
   
- 
+  #ifndef SIMULATION_TESTING
+  
   // initialise the sensor suite
+  error_code = iicSensorInit();
+  
+  // write the result of the sensor initialisation to the serial
+  if (error_code == NO_ERROR) {
+    sprintf(buffer, "NO_ERROR");
+    SCI1_OutString(buffer);
+  } else {
+    sprintf(buffer, "ERROR %d");
+    SCI1_OutString(buffer);    
+  }
+  
+  #else
+  
   Init_TC7();
+  
+  #endif
   
    
 	EnableInterrupts;
@@ -42,21 +62,34 @@
 
   for(;;) {
   
-     
-     current_output = fall_detect(prev_output);
-     prev_output = current_output;
-     
-     
-     
+    #ifndef SIMULATION_TESTING
+  
+    // read the raw values
+    getRawDataGyro(&read_gyro);
+    //getRawDataAccel(&read_accel);
+    //getRawDataMagnet(&read_magnet);
+    
+    #else
+    
+    // inject some values for simulation
+    read_gyro.x = 123; read_gyro.y = 313; read_gyro.z = 1002;
+    read_accel.x = 124; read_accel.y = 312; read_accel.z = 2002;
+    read_magnet.x = 125; read_magnet.y = 311; read_magnet.z = 3002;
+    
+    #endif
 
+    // convert the acceleration to a scaled value
+    convertUnits(&read_accel, &scaled_accel);    
+    
     // format the string of the sensor data to go the the serial
-    sprintf(buffer, "%d\r\n",current_output.emergency);
-
+    sprintf(buffer, "%d, %d, %d \r\n",read_gyro.x, read_gyro.y, read_gyro.z);
+    
     // output the data to serial
     SCI1_OutString(buffer);
- 
+    
+    
     _FEED_COP(); /* feeds the dog */
-  }/* loop forever */
+  } /* loop forever */
   
   /* please make sure that you never leave main */
 }

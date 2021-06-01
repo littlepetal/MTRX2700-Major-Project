@@ -13,7 +13,6 @@ while(1)
     ylim([0 10]);
     pause(0.05);
     i=i+1;
-    
 end
 
 
