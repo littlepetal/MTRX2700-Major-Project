@@ -3,7 +3,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 
 # White cane and guide dog replacement package
 
-## Lidar Module
+## Lidar Module (Obstacle detection)
 
 #### Dependencies
 - The lidar module will take a PWM signal as input and calculate the distance away (in metres) from the closest obstacle in the direction the lidar is pointing. The distance is returned as a volatile unsigned int.
@@ -68,15 +68,6 @@ Group 2 Tuesday 2pm-5pm Lab2
 - First the functions are initialised so that the messages are being sent across from the modules
 - message is being typed across the board -> output message should be received
 - measurements are also displayed onto a terminal
-
-#### Functionality
-
-
-## Obstacle detection Module
-
-#### Dependencies
-
-#### Usability
 
 #### Functionality
 
