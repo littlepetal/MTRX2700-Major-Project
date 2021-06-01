@@ -1,5 +1,5 @@
 *** EVALUATION ***
-PROGRAM "D:\Documents\GitHub\MTRX2700-Major-Project\Voice feedback\bin\Project.absHCS12_Serial_Monitor.abs"
+PROGRAM "C:\Users\ASUS\Documents\GitHub\psychic-octo-waffle\Voice feedback\bin\Project.absHCS12_Serial_Monitor.abs"
 
 *********************************************************************************************
 TARGET SECTION
@@ -29,7 +29,7 @@ _startupData is allocated at 0xC03B and uses 6 Bytes
 extern struct _tagStartup {
   unsigned nofZeroOut     1
   _Range   pZeroOut       0x1100     8406
-  _Copy    *toCopyDownBeg 0xC25F
+  _Copy    *toCopyDownBeg 0xC25E
 } _startupData;
 
 *********************************************************************************************
@@ -38,9 +38,9 @@ Section Name                    Size  Type     From       To       Segment
 ---------------------------------------------------------------------------------------------
 .init                             59     R     0xC000     0xC03A   ROM_C000
 .startData                        10     R     0xC03B     0xC044   ROM_C000
-.text                            520     R     0xC045     0xC24C   ROM_C000
-NON_BANKED                        10     R     0xC24D     0xC256   ROM_C000
-.copy                            289     R     0xC25F     0xC37F   ROM_C000
+.text                            519     R     0xC045     0xC24B   ROM_C000
+NON_BANKED                        10     R     0xC24C     0xC255   ROM_C000
+.copy                            289     R     0xC25E     0xC37E   ROM_C000
 .stack                           256   R/W     0x1000     0x10FF   RAM
 .data                           7200   R/W     0x1100     0x2D1F   RAM
 .abs_section_8                     1   N/I        0x8        0x8   .absSeg0
@@ -385,12 +385,12 @@ NON_BANKED                        10     R     0xC24D     0xC256   ROM_C000
 .abs_section_2ae                   2   N/I      0x2AE      0x2AF   .absSeg339
 .abs_section_2be                   2   N/I      0x2BE      0x2BF   .absSeg340
 .abs_section_ff80                126     R     0xFF80     0xFFFD   .absSeg341
-RUNTIME                            8     R     0xC257     0xC25E   ROM_C000
+RUNTIME                            8     R     0xC256     0xC25D   ROM_C000
 .common                         1206   R/W     0x2D20     0x31D5   RAM
 .vectSeg342_vect                   2     R     0xFFFE     0xFFFF   .vectSeg342
 
 Summary of section sizes per section type:
-READ_ONLY (R):         400 (dec:     1024)
+READ_ONLY (R):         3FF (dec:     1023)
 READ_WRITE (R/W):     21D6 (dec:     8662)
 NO_INIT (N/I):         190 (dec:      400)
 
@@ -750,7 +750,7 @@ MODULE:                 -- mc9s12dg256.c.o --
      _CAN4TXTSR                                 2BE       2       2       0   .abs_section_2be
 MODULE:                 -- main.c.o --
 - PROCEDURES:
-     main                                      C045      12      18       1   .text       
+     main                                      C045      11      17       1   .text       
 - VARIABLES:
 MODULE:                 -- Start12.c.o --
 - PROCEDURES:
@@ -762,25 +762,25 @@ MODULE:                 -- Start12.c.o --
      __SEG_END_SSTACK                          1100       0       0       1               
 MODULE:                 -- rtshc12.c.o (ansisf.lib) --
 - PROCEDURES:
-     _COPY                                     C257       8       8       5   RUNTIME     
+     _COPY                                     C256       8       8       5   RUNTIME     
 - VARIABLES:
 MODULE:                 -- oc5_isr.c.o --
 - PROCEDURES:
-     OC5_ISR                                   C24D       8       8       1   NON_BANKED  
+     OC5_ISR                                   C24C       8       8       1   NON_BANKED  
 - VARIABLES:
 MODULE:                 -- isr_vectors.c.o --
 - PROCEDURES:
-     UnimplementedISR                          C255       2       2      62   NON_BANKED  
+     UnimplementedISR                          C254       2       2      62   NON_BANKED  
 - VARIABLES:
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 MODULE:                 -- delay.c.o --
 - PROCEDURES:
-     delay                                     C057      2B      43       1   .text       
+     delay                                     C056      2B      43       1   .text       
 - VARIABLES:
 MODULE:                 -- voice.c.o --
 - PROCEDURES:
-     InitSpeaker                               C082      1B      27       1   .text       
-     voice                                     C09D     1B0     432      32   .text       
+     InitSpeaker                               C081      1B      27       1   .text       
+     voice                                     C09C     1B0     432      32   .text       
 - VARIABLES:
      Voice1                                    1100     4B0    1200       5   .data       
      Voice2                                    15B0     4B0    1200       5   .data       
@@ -798,7 +798,7 @@ MODULE STATISTIC
   Name                                      Data   Code  Const
 ---------------------------------------------------------------------------------------------
   mc9s12dg256.c.o                            400      0      0
-  main.c.o                                     0     18      0
+  main.c.o                                     0     17      0
   Start12.c.o                                  0     59      0
   rtshc12.c.o (ansisf.lib)                     0      8      0
   oc5_isr.c.o                                  0      8      0
@@ -1864,13 +1864,13 @@ OBJECT LIST SORTED BY ADDRESS
      Voice                                     2D26     4B0    1200      15   .common     
      Init                                      C000      29      41       1   .init       
      _Startup                                  C029      12      18       0   .init       
-     main                                      C045      12      18       1   .text       
-     delay                                     C057      2B      43       1   .text       
-     InitSpeaker                               C082      1B      27       1   .text       
-     voice                                     C09D     1B0     432      32   .text       
-     OC5_ISR                                   C24D       8       8       1   NON_BANKED  
-     UnimplementedISR                          C255       2       2      62   NON_BANKED  
-     _COPY                                     C257       8       8       5   RUNTIME     
+     main                                      C045      11      17       1   .text       
+     delay                                     C056      2B      43       1   .text       
+     InitSpeaker                               C081      1B      27       1   .text       
+     voice                                     C09C     1B0     432      32   .text       
+     OC5_ISR                                   C24C       8       8       1   NON_BANKED  
+     UnimplementedISR                          C254       2       2      62   NON_BANKED  
+     _COPY                                     C256       8       8       5   RUNTIME     
      _vect                                     FF80      7E     126       0   .abs_section_ff80
 
 *********************************************************************************************
@@ -1891,88 +1891,88 @@ rtshc12.c.o (ansisf.lib):
 *********************************************************************************************
 COPYDOWN SECTION
 ---------------------------------------------------------------------------------------------
-------- ROM-ADDRESS: 0xC25F ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC25E ---- SIZE       4 ---
 Filling bytes inserted
  00081100
-------- ROM-ADDRESS: 0xC263 ---- RAM-ADDRESS: 0x1100 ---- SIZE       8 ---
+------- ROM-ADDRESS: 0xC262 ---- RAM-ADDRESS: 0x1100 ---- SIZE       8 ---
 Name of initialized Object : Voice1
  01F4000101 F40001
-------- ROM-ADDRESS: 0xC26B ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC26A ---- SIZE       4 ---
 Filling bytes inserted
  00071359
-------- ROM-ADDRESS: 0xC26F ---- RAM-ADDRESS: 0x1359 ---- SIZE       7 ---
+------- ROM-ADDRESS: 0xC26E ---- RAM-ADDRESS: 0x1359 ---- SIZE       7 ---
 Name of initialized Object : Voice1:601
  0C0006000C 0005
-------- ROM-ADDRESS: 0xC276 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC275 ---- SIZE       4 ---
 Filling bytes inserted
  000C15B0
-------- ROM-ADDRESS: 0xC27A ---- RAM-ADDRESS: 0x15B0 ---- SIZE      12 ---
+------- ROM-ADDRESS: 0xC279 ---- RAM-ADDRESS: 0x15B0 ---- SIZE      12 ---
 Name of initialized Object : Voice2
  0190000101 9000010190 0001
-------- ROM-ADDRESS: 0xC286 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC285 ---- SIZE       4 ---
 Filling bytes inserted
  000B1809
-------- ROM-ADDRESS: 0xC28A ---- RAM-ADDRESS: 0x1809 ---- SIZE      11 ---
+------- ROM-ADDRESS: 0xC289 ---- RAM-ADDRESS: 0x1809 ---- SIZE      11 ---
 Name of initialized Object : Voice2:601
  0800040008 0004000800 03
-------- ROM-ADDRESS: 0xC295 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC294 ---- SIZE       4 ---
 Filling bytes inserted
  00101A60
-------- ROM-ADDRESS: 0xC299 ---- RAM-ADDRESS: 0x1A60 ---- SIZE      16 ---
+------- ROM-ADDRESS: 0xC298 ---- RAM-ADDRESS: 0x1A60 ---- SIZE      16 ---
 Name of initialized Object : Voice3
  012C000101 2C0001012C 0001012C00
  01
-------- ROM-ADDRESS: 0xC2A9 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2A8 ---- SIZE       4 ---
 Filling bytes inserted
  000F1CB9
-------- ROM-ADDRESS: 0xC2AD ---- RAM-ADDRESS: 0x1CB9 ---- SIZE      15 ---
+------- ROM-ADDRESS: 0xC2AC ---- RAM-ADDRESS: 0x1CB9 ---- SIZE      15 ---
 Name of initialized Object : Voice3:601
  0600030006 0003000600 0300060002
-------- ROM-ADDRESS: 0xC2BC ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2BB ---- SIZE       4 ---
 Filling bytes inserted
  00171F11
-------- ROM-ADDRESS: 0xC2C0 ---- RAM-ADDRESS: 0x1F11 ---- SIZE      23 ---
+------- ROM-ADDRESS: 0xC2BF ---- RAM-ADDRESS: 0x1F11 ---- SIZE      23 ---
 Name of initialized Object : Voice4:1
  C8000100C8 000100C800 0100C80001
  00C8000100 C80001
-------- ROM-ADDRESS: 0xC2D7 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2D6 ---- SIZE       4 ---
 Filling bytes inserted
  00172169
-------- ROM-ADDRESS: 0xC2DB ---- RAM-ADDRESS: 0x2169 ---- SIZE      23 ---
+------- ROM-ADDRESS: 0xC2DA ---- RAM-ADDRESS: 0x2169 ---- SIZE      23 ---
 Name of initialized Object : Voice4:601
  0400020004 0002000400 0200040002
  0004000100 040001
-------- ROM-ADDRESS: 0xC2F2 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC2F1 ---- SIZE       4 ---
 Filling bytes inserted
  002F23C1
-------- ROM-ADDRESS: 0xC2F6 ---- RAM-ADDRESS: 0x23C1 ---- SIZE      47 ---
+------- ROM-ADDRESS: 0xC2F5 ---- RAM-ADDRESS: 0x23C1 ---- SIZE      47 ---
 Name of initialized Object : Voice5:1
  6400010064 0001006400 0100640001
  0064000100 6400010064 0001006400
  0100640001 0064000100 6400010064
  0001
-------- ROM-ADDRESS: 0xC325 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC324 ---- SIZE       4 ---
 Filling bytes inserted
  002F2619
-------- ROM-ADDRESS: 0xC329 ---- RAM-ADDRESS: 0x2619 ---- SIZE      47 ---
+------- ROM-ADDRESS: 0xC328 ---- RAM-ADDRESS: 0x2619 ---- SIZE      47 ---
 Name of initialized Object : Voice5:601
  0200010002 0001000200 0100020001
  0002000100 0200010002 0001000200
  0100020001 0002000100 0200010002
  0001
-------- ROM-ADDRESS: 0xC358 ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC357 ---- SIZE       4 ---
 Filling bytes inserted
  000F2871
-------- ROM-ADDRESS: 0xC35C ---- RAM-ADDRESS: 0x2871 ---- SIZE      15 ---
+------- ROM-ADDRESS: 0xC35B ---- RAM-ADDRESS: 0x2871 ---- SIZE      15 ---
 Name of initialized Object : VoiceFall:1
  6401900064 0190006401 9000640190
-------- ROM-ADDRESS: 0xC36B ---- SIZE       4 ---
+------- ROM-ADDRESS: 0xC36A ---- SIZE       4 ---
 Filling bytes inserted
  000F2AC9
-------- ROM-ADDRESS: 0xC36F ---- RAM-ADDRESS: 0x2AC9 ---- SIZE      15 ---
+------- ROM-ADDRESS: 0xC36E ---- RAM-ADDRESS: 0x2AC9 ---- SIZE      15 ---
 Name of initialized Object : VoiceFall:601
  0300020003 0002000300 0200030002
-------- ROM-ADDRESS: 0xC37E ---- SIZE       2 ---
+------- ROM-ADDRESS: 0xC37D ---- SIZE       2 ---
 Filling bytes inserted
  0000
 
@@ -2023,6 +2023,6 @@ STATISTIC SECTION
 
 ExeFile:
 --------
-Number of blocks to be downloaded: 6
-Total size of all blocks to be downloaded: 1024
+Number of blocks to be downloaded: 7
+Total size of all blocks to be downloaded: 1023
 

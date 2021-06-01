@@ -12,13 +12,11 @@ void main(void){
 
   while(1)
   {  
-  voice(4,1);//voice(distance, condition of fall down)
+  voice(4,0);//voice(distance, condition of fall down)
   }
   
 	EnableInterrupts;
 	
-  // After tune is finished disable interrupt and loop forever //
-  TIOS &= 0xBF; // Disable 0C5;
 
   for(;;) {
     _FEED_COP(); /* feeds the dog */
