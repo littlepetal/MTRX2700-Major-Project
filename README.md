@@ -1,7 +1,20 @@
 # psychic-octo-waffle
 Group 2 Tuesday 2pm-5pm Lab2
 
-# White cane and guide dog replacement package
+# White cane and guide dog, physical and emotional support package
+## Why visually impaired people need our product
+#### Physical support
+- Visually impaired people requires support to avoid walking into obstacles in daily life. Our device provides a simple obstacle detection system which alerts the user of front on obstacles within 5 metres of contact, with gradually more intense warning sounds as the obstacle becomes closer.
+- Our device is superior to other devices on the market because it is fast as it only detects front on obstacles. The user can simply rotate their neck to find a path around the obstacle.
+- Our device includes a gyro and servo system which keeps the detector horizontal to the floor and up right at all times, so the user does not need to worry about keeping a tall neck for accurate detection.
+- Our device includes an accelerometre fall detection system which can be used to dial an emergency contact if the person has fallen. This emergency dial can be turned off manually by the user if need be.
+- A fall also triggers a guide dog whimpering sound which alerts bystanders and urges them to assist the user. 
+
+#### Emotional support
+- Not only does our device offer physical support, it offers a personalisable emotional support system.
+- We have included a sample 'whimperingpup.mp3' file in the PC interface module to be played to alert bystanders of falls. However, this is easily reconfigurable to play any mp3 file under custom conditions.
+- For example, the loss of a guide dog is a cause of immense grief. Sometimes, one would like to be reminded of their past memories with their guide dog, perhaps by a recording of the sound of their paws running towards them, or the playful barks they used to make. 
+- These recordings can be played under any prompt configured in the PC interface module by the user.
 
 ## Lidar Module (Obstacle detection)
 
