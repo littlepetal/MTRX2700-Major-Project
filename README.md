@@ -8,7 +8,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Dependencies
 - The lidar module will take a PWM signal as input and calculate the distance away (in metres) from the closest obstacle in the direction the lidar is pointing. The distance is returned as a volatile unsigned int.
 - The lidar module can be used in conjunction with the microcontroller speaker module to make warning sounds when an obstacle is very close.
-- The lidar module can be used in conjunction with the PC speaker interface module to make guide dog sounds when the person has fallen over.
+- The lidar module can be used in conjunction with the PC interface module to make guide dog sounds when the person has fallen over.
 - The lidar module can be used in conjunction with the accelerometre module to run obstacle detection and fall detection together.
 - The lidar module can be used in conjunction with the serialisation module to continuously print the value of the currently measured distance in a terminal like PuTTY. 
 
@@ -79,3 +79,18 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Usability
 
 #### Functionality
+
+
+## PC interface Module
+
+#### Dependencies
+- The PC interface module will take a comma deliminated string as input and output a plot of the obstacle distances detected by the lidar and play a guide dog whimpering sound when the accelerometre detects a fall 
+
+#### Usability
+- To use this module, the user will need to run a CodeWarrior program with the serialisation, lidar and accelerometres modules. 
+- The user must initialise a variable using `unsigned char buffer[12];`, then use `SCI1_Init(BAUD_9600);` and then output the desired values calculated from the lidar and accelerometre modules to serial using `SCI1_OutString(buffer);`
+- Once the microcontroller program is configured and running, the user must open `matt.m` and click run.
+
+#### Functionality
+- The PC interface is only responsible for plotting in real time and playing the `whimperingpup.mp3` file depending on conditions.
+
