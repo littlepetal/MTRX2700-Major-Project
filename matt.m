@@ -27,17 +27,35 @@ end
 
 
 while(1)
-    data(i) = str2double(fscanf(s));
+    newStr = split(fscanf(s), ",");
+    disp(newStr);
+    data(i) = str2double(newStr(2));
     disp(data(i));
-    if(data(i) <= 2)
+    
+    %data(i) = str2double(fscanf(s));
+    %disp(data(i));
+    
+    
+    if(data(i) > 0)
         %play(player);
         sound(y, Fs, nBits);
         pause(2);
         %stop(player);       
     end
+    
+    
+    data(i) = str2double(newStr(1)); 
+    disp(data(i));
+    
+    plot(data);
+    ylim([0 10]);
+    pause(0.01);
+    
+    
     %clear sound;
     %pause(0.01);
     i=i+1;
+    
 end
  
 

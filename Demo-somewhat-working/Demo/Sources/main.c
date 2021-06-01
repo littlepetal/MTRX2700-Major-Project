@@ -188,11 +188,12 @@ void main(void) {
       
       // for usage with Matlab
       //sprintf(buffer,"%u\r\n",distance);
+      sprintf(buffer,"%u,%d\r\n",distance, current_output.emergency);
       
       // for usage with PuTTY
       //sprintf(buffer,"distance: %u, fall: %d\r\n",distance, current_output.emergency);
       
-      sprintf(buffer,"%u\r\n",1);
+      //sprintf(buffer,"%u\r\n",1);
       SCI1_OutString(buffer);
       
 
