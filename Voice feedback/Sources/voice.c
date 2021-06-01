@@ -12,8 +12,8 @@ volatile int length; // Length of music score, number of notes.
 volatile int notes_left;
                                          
                                          
-#define HiFreq  0x5D
-#define LoFreq  0xBB 
+#define HiFreq  1250
+#define LoFreq  5000 
 
 #define   E1 500
 #define   D2 400
@@ -141,7 +141,6 @@ void voice(int voiceNumber,int fallDown) {
     }
   }
   
-  // Set notes left equal to length //
   notes_left = length;
   
   
@@ -169,7 +168,6 @@ void voice(int voiceNumber,int fallDown) {
   }
   
 
-  // After tune is finished disable interrupt and loop forever //
   TIOS &= 0xBF; // Disable 0C5;
 
 
