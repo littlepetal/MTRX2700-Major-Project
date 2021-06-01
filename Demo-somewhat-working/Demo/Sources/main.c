@@ -22,7 +22,7 @@ void main(void) {
   volatile unsigned int distance = 0;
   
   unsigned char buffer[12];       // buffer for serial output
-  
+  volatile unsigned int degrees = 0;
   
   // lidar and acc module WORKING
   /*
@@ -171,9 +171,19 @@ void main(void) {
       //distance = 0;
       
       // check whether subject has fallen
+      
       current_output = fall_detect(prev_output);
+      //degrees = 90+(90*prev_output.prev_output.z);
       prev_output = current_output;
       
+      //degrees = abs(degrees-180);
+      
+
+    
+      //tilt_servo(degrees);      
+      
+    
+      //MSDelay(100);
       
       //TSCR1 = 0x90;
       TSCR1_TFFCA = 1;    // enable timer fast flag clear all bits
