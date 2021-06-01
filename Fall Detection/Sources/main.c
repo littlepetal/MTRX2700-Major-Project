@@ -8,21 +8,17 @@
 #include "pll.h"
 #include "simple_serial.h"
 #include "l3g4200d.h"
-
+#include "servo.h"
 
 
 void main(void) {
-
-  AccelRaw read_accel;
-  AccelScaled scaled_accel;
-
-  GyroRaw read_gyro;
-  
-  MagRaw read_magnet;
-  
+  unsigned char buffer[12];
+  volatile float degrees = 0;
   int error_code = NO_ERROR;
-  unsigned char buffer[128];
-  
+  fall_output current_output;
+  fall_output prev_output;
+  init_fall_output(prev_output);
+
   //assert(error_code != NO_ERROR);
 
   #ifndef SIMULATION_TESTING
@@ -58,38 +54,29 @@ void main(void) {
   
    
 	EnableInterrupts;
-  COPCTL = 7;
+  //COPCTL = 7;
+  
 
   for(;;) {
   
-    #ifndef SIMULATION_TESTING
-  
-    // read the raw values
-    getRawDataGyro(&read_gyro);
-    //getRawDataAccel(&read_accel);
-    //getRawDataMagnet(&read_magnet);
+     
+    current_output = fall_detect(prev_output);
     
-    #else
+    degrees = 90+(90*current_output.prev_output.z);
     
-    // inject some values for simulation
-    read_gyro.x = 123; read_gyro.y = 313; read_gyro.z = 1002;
-    read_accel.x = 124; read_accel.y = 312; read_accel.z = 2002;
-    read_magnet.x = 125; read_magnet.y = 311; read_magnet.z = 3002;
+    //tilt_servo((int)degrees);
     
-    #endif
-
-    // convert the acceleration to a scaled value
-    convertUnits(&read_accel, &scaled_accel);    
+    prev_output = current_output;
     
+    MSDelay(100);
     // format the string of the sensor data to go the the serial
-    sprintf(buffer, "%d, %d, %d \r\n",read_gyro.x, read_gyro.y, read_gyro.z);
-    
+    sprintf(buffer, "%0.2f,%0.2f\r\n",current_output.prev_output.z,degrees);
+
     // output the data to serial
     SCI1_OutString(buffer);
-    
-    
+ 
     _FEED_COP(); /* feeds the dog */
-  } /* loop forever */
+  }/* loop forever */
   
   /* please make sure that you never leave main */
 }
