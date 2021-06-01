@@ -55,7 +55,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 - You can adapt the use of other modules by changing the conditions in the logic judgment.
 #### Functionality
 - The OC5 module uses an integer parameter to indicate the number of clock cycles that the program should delay, and updates the pin TC5 to trigger the interrupt again in the program. This interrupt will also cause the PT5 pin to turn on and off, which will cause the speaker to vibrate and generate sound waves.
-- Include 10ms delay module
+- After configuration, the input value will be judged according to the preset conditions, and the corresponding sound will be played.
 
 ## Serialisation Module
 
