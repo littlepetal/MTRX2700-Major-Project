@@ -73,6 +73,12 @@ void SendTextMsg(char* text_message) {
 
 void main(void){
 
+  /* Connecting to gyro*/
+  volatile char text_buffer[32];
+  int rot_x = 20;
+  int rot_y = 10;
+  int rot_z = 100;
+  
   /* Method 1: Basic one (just printing information onto strings as output)*/
   
   // a data struct that we would like to serialise and send to another computer/device/file/etc
@@ -95,20 +101,13 @@ void main(void){
                                          
   // load the value from the buffer (presume that you have just received this from the 
   //  serial/network/file/etc and that we know the data contains the struct we are looking for
-  memcpy((unsigned char*)(&data_to_receive), transmit_buffer_ptr, sizeof(data_to_serialise));  
+  memcpy((unsigned char*)(&data_to_receive), transmit_buffer_ptr, sizeof(data_to_serialise)); 
 
   /* Section 2: Using interrupts to print out serial to a terminal (worked if board connected) */
   Init_sci();
   
   
   /* Method 3: Attempting to connect to serial to communicate between other modules */
-  
-  
-  /* Connecting to gyro*/
-  volatile char text_buffer[32];
-  int rot_x = 0;
-  int rot_y = 10;
-  int rot_z = 100;
   
   // initialise the serial
   SCI1_Init(BAUD_9600);
