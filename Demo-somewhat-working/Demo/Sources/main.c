@@ -189,7 +189,7 @@ void main(void) {
       TSCR1_TFFCA = 1;    // enable timer fast flag clear all bits
       
       // play warning sounds   
-      voice(distance, current_output.emergency);
+     // voice(distance, current_output.emergency);
       
       //TSCR1 = 0x80;
       TSCR1_TFFCA = 0;   // disable timer fast flag clear all bits
