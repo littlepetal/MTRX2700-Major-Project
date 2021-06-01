@@ -6,15 +6,24 @@ Group 2 Tuesday 2pm-5pm Lab2
 ## Lidar Module
 
 #### Dependencies
-- The lidar module will take a PWM signal as input and calculate the distance away (in metres) from the closest obstacle in the direction the lidar is pointing. The distance returned has volatile unsigned int data type.
-- The lidar module can be used in conjunction with the speaker module to make warning sounds when an obstacle is very close.
+- The lidar module will take a PWM signal as input and calculate the distance away (in metres) from the closest obstacle in the direction the lidar is pointing. The distance is returned as a volatile unsigned int.
+- The lidar module can be used in conjunction with the microcontroller speaker module to make warning sounds when an obstacle is very close.
+- The lidar module can be used in conjunction with the PC speaker interface module to make guide dog sounds when the person has fallen over.
+- The lidar module can be used in conjunction with the accelerometre module to run obstacle detection and fall detection together.
 - The lidar module can be used in conjunction with the serialisation module to continuously print the value of the currently measured distance in a terminal like PuTTY. 
 
 #### Usability
-- First, the user must use 'Init_lidar' so that the variables, interrupts and ports used by the lidar module are initialised and configured as intended
--   
+- First, the user must use 'Init_lidar' so that the variables, interrupts and ports used by the lidar module are initialised and configured as intended, which is:
+  - 'PORT T' as input
+  - Enabled timer overflow interrupt
+  - Disabled timer fast flag clear all bits
+  - Timer prescaler value of 128
+  - Enabled timer channel 1 interrupt
+  - Timer channel 1 set to inpust capture on both falling and rising edge
+  - Initialising variabled used in the lidar module as zero 
 
 #### Functionality
+- Once configured, the lidar module is only responsible for returning the distance to the closest obstacle from the lidar in metres as a volatile unsigned int. The function that returns this value is 'get_metres()'
 
 
 ## Accelerometre Module
