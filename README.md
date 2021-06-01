@@ -51,6 +51,12 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Functionality
 - This module has two functions for the tilt and rotaion respectively, and inputting the degrees will rotate the servo accordingly
 
+#### Testing Procedure
+- a serial interface was set up to enter the value for duty cycle of the PWM
+- The PWM wave was analysed using the oscilloscop provided in the lab
+- The orientation of the servo was checked based on the values given to get calibration
+
+
 
 ## Speaker Module
 
@@ -104,8 +110,10 @@ Group 2 Tuesday 2pm-5pm Lab2
 -  It can also give a count of how long since the object/person has fallen down from `output`
 
 
-
-
+#### Testing Procedure
+- The acceleration values were printed on the serial monitor
+- The hardware was oriented in realtime while outputting on the serial, to get the calibration
+- Different error conditions were set to check for connection negligence
 
 ## PC interface Module
 
