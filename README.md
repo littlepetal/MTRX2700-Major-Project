@@ -48,7 +48,7 @@ Group 2 Tuesday 2pm-5pm Lab2
 
 #### Dependencies
 - This module is used in conjunction with the lidar module to activate the corresponding audio according to the change of the distance parameter.
-- This module is used in conjunction with the acceleration module and the gyroscope module, and it will continue to warn the user when it is judged that the user is down.
+- This module is used in conjunction with the acceleration module, and is judging whether the user has fallen and continuously warns.
 
 #### Usability
 - Users can customize the audio in the module.
