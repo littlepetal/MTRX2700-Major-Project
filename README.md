@@ -38,23 +38,18 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Functionality
 - Once configured, the lidar module is only responsible for returning the distance to the closest obstacle from the lidar in metres as a volatile unsigned int. The function that returns this value is `get_metres()`
 
-
-## Accelerometre Module
-
-#### Dependencies
-
-#### Usability
-
-#### Functionality
-
-
-## Gyro Module
+## Servo Module
 
 #### Dependencies
+-This is a modular function and can be used in conjuction with any module based on the use and it is independent of other modules
 
 #### Usability
+- include the servo.h header in the main function
+- use `tilt_servo(degrees)` for the tilt motor
+- use `rotate_servo(degrees)` for the rotate motor 
 
 #### Functionality
+- This module has two functions for the tilt and rotaion respectively, and inputting the degrees will rotate the servo accordingly
 
 
 ## Speaker Module
@@ -86,13 +81,30 @@ Group 2 Tuesday 2pm-5pm Lab2
 #### Functionality
 
 
-## Fall detection Module
+## Fall detection/Orientation Module
 
 #### Dependencies
+- The Fall detection module can be used in conjunction with the PC interface module to make guide dog sounds when the person has fallen over.
+- The Fall detection module utilises the MEMS board attached on the PTU to detect the orientation.
+- - The Fall detection module can be utilised with the PC interface module to notify an emergency
+
 
 #### Usability
+-  To use this module two variables for current and previous outputs of struct type `fall_output`, which is a specific struct create for this function, should be created.
+-  The structs are intialised using `init_fall_output(fall_output input)` function
+-  In the main loop of the program, the function fall_detect(prev_output) is called passing the previous output as input.
+-  The output of the function `fall_detect(prev_output)` is stored as the current_output
+-  The variable emergecny in the current_output struct notifies if the person has fallen down.
+-  This module also outputs the acceleration of the object which can be accesed from the outputted struct of `fall_detect()`;
 
 #### Functionality
+-  This function has a versatile functionality
+-  It can detect if the person has fallen down or not, which is outputted by the varaible `emergency` in the output struct
+-  It can output the accelerations in x,y,z axes throug the struct `AccelScaled` in the output struct
+-  It can also give a count of how long since the object/person has fallen down from `output`
+
+
+
 
 
 ## PC interface Module
